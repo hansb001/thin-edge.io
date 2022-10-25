@@ -35,9 +35,9 @@ This tutorial is divided into small steps. The first three steps are needed to i
 
 [Step 5 Add software management](#Step-5-Add-software-management)
 
-[Step 6 Manage configuration files](#Step-5-Manage-configuration-files)
+[Step 6 Manage configuration files](#Step-6-Manage-configuration-files)
 
-[Step 7 Manage Log-Files](#Step-6-Manage-Log-Files)
+[Step 7 Manage Log-Files](#Step-7-Manage-Log-Files)
 
 
 
@@ -134,7 +134,7 @@ If the password prompt appears, enter your password.
 
 ### Connect
 
-We now are ready to connect RevPi with Cumulocity. This can be achieved via:
+We now are ready to connect the device to Cumulocity. This can be achieved via:
 ```
 sudo tedge connect c8y
 ```
