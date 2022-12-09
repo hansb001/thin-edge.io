@@ -163,8 +163,7 @@ You can upload root certificate via <a href="https://cumulocity.com/guides/users
 <p>Note: This command takes parameter <code>user</code>, this is due to upload mechanism to Cumulocity cloud which uses username and password for authentication.</p>
 <p>After issuing this command you are going to be prompted for a password. Users usernames and passwords are not stored in configuration due to security.</p>
 </blockquote>
-<pre><code class="language-shell">$ sudo tedge cert upload c8y --user &lt;username&gt;
-Password:
+<pre><code class="language-shell">sudo tedge cert upload c8y --user &lt;username&gt;
 </code></pre>
 <p>where:</p>
 <blockquote>
@@ -172,8 +171,9 @@ Password:
 </blockquote>
 <hr />
 <p>To create bridge use <a href="../references/tedge-connect.html"><code>tedge connect</code></a>:</p>
-<pre><code class="language-shell">$ sudo tedge connect c8y
-Checking if systemd is available.
+<pre><code class="language-shell">sudo tedge connect c8y
+</code></pre>
+<pre><code>Checking if systemd is available.
 
 Checking if configuration for requested bridge already exists.
 
@@ -216,8 +216,9 @@ tedge-agent service successfully started and enabled!
 <h3 id="errors"><a class="header" href="#errors">Errors</a></h3>
 <h4 id="connection-already-established"><a class="header" href="#connection-already-established">Connection already established</a></h4>
 <p>If connection has already been established following error may appear:</p>
-<pre><code class="language-shell">$ sudo tedge connect c8y
-Checking if systemd is available.
+<pre><code class="language-shell">sudo tedge connect c8y
+</code></pre>
+<pre><code>Checking if systemd is available.
 
 Checking if configuration for requested bridge already exists.
 
@@ -227,8 +228,9 @@ Caused by:
     Connection is already established. To remove existing connection use 'tedge disconnect c8y' and try again.
 </code></pre>
 <p>To remove existing connection and create new one follow the advice and issue <a href="../references/tedge-disconnect.html"><code>tedge disconnect c8y</code></a>:</p>
-<pre><code class="language-shell">$ sudo tedge disconnect c8y
-Removing Cumulocity bridge.
+<pre><code class="language-shell">sudo tedge disconnect c8y
+</code></pre>
+<pre><code>Removing Cumulocity bridge.
 
 Applying changes to mosquitto.
 
@@ -252,8 +254,9 @@ tedge-agent service successfully stopped and disabled!
 <p>And now you can issue <a href="../references/tedge-connect.html"><code>tedge connect c8y</code></a> to create new bridge.</p>
 <h4 id="connection-check-warning"><a class="header" href="#connection-check-warning">Connection check warning</a></h4>
 <p>Sample output of tedge connect when this warning occurs:</p>
-<pre><code class="language-shell">$ sudo tedge connect c8y
-Checking if systemd is available.
+<pre><code class="language-shell">sudo tedge connect c8y
+</code></pre>
+<pre><code>Checking if systemd is available.
 
 Checking if configuration for requested bridge already exists.
 
@@ -313,8 +316,9 @@ tedge-agent service successfully started and enabled!
 <p>When this is done, issue <a href="../references/tedge-connect.html"><code>tedge connect c8y</code></a> again.</p>
 <h4 id="file-permissions"><a class="header" href="#file-permissions">File permissions</a></h4>
 <p>Sample output:</p>
-<pre><code class="language-shell">$ tedge connect c8y
-Checking if systemd is available.
+<pre><code class="language-shell">tedge connect c8y
+</code></pre>
+<pre><code>Checking if systemd is available.
 
 Checking if configuration for requested bridge already exists.
 
@@ -331,17 +335,20 @@ Caused by:
 </code></pre>
 <p>tedge connect cannot access location to create the bridge configuration (<code>/etc/tedge/mosquitto-conf</code>), check permissions for the directory and adjust it to allow the tedge connect to access it.</p>
 <p>Example of incorrect permissions:</p>
-<pre><code class="language-shell">$ ls -l /etc/tedge
-dr--r--r-- 2 tedge     tedge     4096 Mar 30 15:40 mosquitto-conf
+<pre><code class="language-shell">ls -l /etc/tedge
+</code></pre>
+<pre><code>dr--r--r-- 2 tedge     tedge     4096 Mar 30 15:40 mosquitto-conf
 </code></pre>
 <p>You should give it the permission 755.</p>
-<pre><code class="language-shell">$ ls -l /etc/tedge
-drwxr-xr-x 2 tedge     tedge     4096 Mar 30 15:40 mosquitto-conf
+<pre><code class="language-shell">ls -l /etc/tedge
+</code></pre>
+<pre><code>drwxr-xr-x 2 tedge     tedge     4096 Mar 30 15:40 mosquitto-conf
 </code></pre>
 <h4 id="mosquitto-and-systemd-check-fails"><a class="header" href="#mosquitto-and-systemd-check-fails">mosquitto and systemd check fails</a></h4>
 <p>Sample output:</p>
-<pre><code class="language-shell">$ sudo tedge connect c8y
-Checking if systemd is available.
+<pre><code class="language-shell">sudo tedge connect c8y
+</code></pre>
+<pre><code>Checking if systemd is available.
 
 Checking if configuration for requested bridge already exists.
 

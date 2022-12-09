@@ -135,66 +135,83 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="apama-software-management-plugin"><a class="header" href="#apama-software-management-plugin">Apama Software Management Plugin</a></h1>
-<p>The apama plugin can be used to install and manage apama artefacts.
-This plugin can be used to install an apama project on a device as well as inject monitor files into an already installed project.</p>
-<h2 id="download-and-install-apama-plugin"><a class="header" href="#download-and-install-apama-plugin">Download and Install Apama Plugin</a></h2>
-<blockquote>
-<p>Note: This plugin expects an apama installation on the device which is managed as a System V service. If Apama is not installed or if the System V init script is not installed, follow the Apama installation instructions <a href="https://github.com/thin-edge/thin-edge.io_examples/tree/main/StreamingAnalytics#setup-and-configuration">here</a> before installing/using the apama plugin.</p>
-</blockquote>
-<p>Apama plugin is delivered as a debian package which can be downloaded from the releases section of thin-edge.io repository on <a href="https://github.com/thin-edge/thin-edge.io/releases">GitHub</a>.</p>
-<p>Example command for downloading the <code>0.5.0</code> version of the plugin for <code>armhf</code> architecture (Adjust the version and architecture values as per your requirements):</p>
-<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.5.0/tedge_apama_plugin_0.5.0_armhf.deb
-</code></pre>
-<p>Once the debian package is downloaded, install it with the <code>dpkg</code> command:</p>
-<pre><code class="language-shell">sudo dpkg -i tedge_apama_plugin_0.5.0_armhf.deb
-</code></pre>
-<p>Once the plugin is installed on the device, you can install apama projects and mon files using Cumulocity software management feature.</p>
-<h2 id="install-apama-artefacts-from-cumulocity"><a class="header" href="#install-apama-artefacts-from-cumulocity">Install Apama artefacts from Cumulocity</a></h2>
-<p>Before an apama project or a mon files can be installed on the device using the software management feature in Cumulocity, these project files or monitor files need to be added to the Cumulocity software repository first.</p>
-<p>There's some naming convention that you need to follow while creating software entries for apama artefacts in the software repository.</p>
-<p>For apama projects:</p>
+<p>The Apama plugin, part of the Apama thin-edge support package, can be used to install Apama projects using the Cumulocity software management feature.</p>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<p>The Apama thin-edge support package must be installed before you can install Apama projects on thin-edge.
+The recommended way of installing Apama support on Debian based distributions is with the apt package manager.
+Further details about this can be found in the thin-edge.io documentation at <a href="https://thin-edge.github.io/thin-edge.io/html/tutorials/software-management.html">Manage the software on your devices from Cumulocity cloud</a>.</p>
+<h4 id="set-up-the-debian-repository-from-which-the-apama-packages-will-be-installed"><a class="header" href="#set-up-the-debian-repository-from-which-the-apama-packages-will-be-installed">Set up the Debian repository from which the Apama packages will be installed</a></h4>
 <ol>
-<li>Name must be suffixed with <code>::project</code> as in <code>my-demo-project::project</code></li>
-<li>Version must be suffixed with <code>::apama</code> as in <code>1.0::apama</code> or just <code>::apama</code> if you don't need a version number.</li>
-<li>The uploaded binary must be a <code>zip</code> file that contains the <code>project</code> directory. If a directory named <code>project</code> is not found at the root level in the zip, it's considered invalid.</li>
+<li>In the Cumulocity IoT tenant, open the <strong>Device Management</strong> app, go to the <strong>Management</strong> menu option and select the <strong>Software repository</strong>.</li>
+<li>Click <strong>Add software</strong> at the right of the top menu bar. </li>
+<li>In the <strong>ADD SOFTWARE</strong> dialog enter the following details:</li>
+</ol>
+<ul>
+<li><strong>Software</strong>: apama-repo</li>
+<li><strong>Description</strong>: apama-repo (or something else if you choose)</li>
+<li><strong>Device Filter Type</strong>: (leave empty)</li>
+<li><strong>Software Type</strong>: apt</li>
+<li><strong>Version</strong>: 2022::apt</li>
+<li><strong>SOFTWARE FILE</strong>: check the <em>Provide a file path</em> option and enter the URL:	https://downloads.apamacommunity.com/debian/apama-repo_2022_all.deb</li>
+</ul>
+<ol start="4">
+<li>Click the <strong>Add Software</strong> button.</li>
+<li>Now select the <strong>Devices</strong> menu option and then select <strong>All devices</strong>.</li>
+<li>In the list of devices, select the thin-edge device installed previously.</li>
+<li>In the sub-menu for the device, select the <strong>Software</strong> option.</li>
+<li>Click the <strong>Install software</strong> button in the bottom left; the apama-repo should be listed.</li>
+<li>Click the drop-down arrow on the right and check the 2022::apt radio button, then click <strong>Install</strong>.</li>
+<li>Finally, click the <strong>Apply changes</strong> button in the lower right of the panel.</li>
+</ol>
+<h4 id="add-the-apama-thin-edge-support-package-to-the-tenant-software-repository-and-deploy-it-to-thin-edge"><a class="header" href="#add-the-apama-thin-edge-support-package-to-the-tenant-software-repository-and-deploy-it-to-thin-edge">Add the Apama thin-edge support package to the tenant software repository and deploy it to thin-edge</a></h4>
+<ol>
+<li>Return to the <strong>Device Management</strong> app and go to the <strong>Management</strong> menu option and select the <strong>Software repository</strong>.</li>
+<li>Click <strong>Add software</strong> at the right of the top menu bar.</li>
+<li>In the <strong>ADD SOFTWARE</strong> dialog enter the following details:
+<ul>
+<li><strong>Software</strong>: apama-thin-edge-support</li>
+<li><strong>Description</strong>: apama-thin-edge-support (or something else if you choose)</li>
+<li><strong>Device Filter Type</strong>: (leave empty)</li>
+<li><strong>Software Type</strong>: apt</li>
+<li><strong>Version</strong>: 10.15.0.2-1::apt</li>
+<li><strong>SOFTWARE FILE</strong>: select the <strong>Provide a file path</strong> option and give an <strong>empty space</strong> (' ').</li>
+</ul>
+</li>
+<li>Click the <strong>Add Software</strong> button.</li>
+<li>Now return to the <strong>Devices</strong> menu option and then select <strong>All devices</strong>.</li>
+<li>In the list of devices, select the thin-edge device installed previously.</li>
+<li>In the sub-menu for the device, select the <strong>Software</strong> option.</li>
+<li>Click the <strong>Install software</strong> button in the bottom left; the apama-thin-edge-support should be listed.</li>
+<li>Click the drop-down arrow on the right and check the 10.15.1.0-1::apama radio button, then click <strong>Install</strong>.</li>
+<li>Finally, click the <strong>Apply changes</strong> button in the lower right of the panel.</li>
+</ol>
+<p>After installation of the support for Apama onto the thin-edge device, the correlator will attempt to start, but will fail initially because there is not yet an Apama project installed. Instructions are given below for installing an Apama project on the device.</p>
+<h2 id="install-apama-projects-from-cumulocity"><a class="header" href="#install-apama-projects-from-cumulocity">Install Apama projects from Cumulocity</a></h2>
+<p>Before an Apama project can be installed on the device using the software management feature in Cumulocity, the project files need to be added to the Cumulocity software repository.</p>
+<p>There is a naming convention that you need to follow while creating software entries for Apama artifacts in the software repository.</p>
+<p>For Apama projects:</p>
+<ol>
+<li>The version must be suffixed with <code>::apama</code> as in <code>1.0::apama</code> or just <code>::apama</code> if no  version number is necessary.</li>
+<li>The uploaded binary must be a <code>zip</code> file that contains the <code>project</code> directory. If a directory named <code>project</code> is not found by the plugin at the root level in the zip, it is considered invalid.</li>
 </ol>
 <p><img src="./images/apama-plugin/apama-project-c8y-software-repository.png" alt="Add new apama project in Software Repository" /></p>
-<p>For apama monitor file:</p>
-<ol>
-<li>Name must be suffixed with <code>::mon</code> as in <code>MyDemoMonitor::mon</code></li>
-<li>Version must be suffixed with <code>::apama</code> as in <code>2.0::apama</code> or just <code>::apama</code> if you don't need a version number.</li>
-<li>The uploaded binary must be a <code>mon</code> file with <code>.mon</code> extension</li>
-</ol>
-<p><img src="./images/apama-plugin/apama-monitor-c8y-software-repository.png" alt="Add new apama monitor file in Software Repository" /></p>
-<p>Once the software modules are added in the software repository, these can be installed on the device just like any other software from the <code>Software</code> tab of the device in Cumulocity device UI.</p>
+<p>Once the software modules have been added to the software repository, these can be installed on the device just like any other software from the <code>Software</code> tab of the device in the Cumulocity device UI.</p>
 <h3 id="testing-apama-plugin"><a class="header" href="#testing-apama-plugin">Testing Apama Plugin</a></h3>
-<p>Here are some test apama artefacts that you can use to test this plugin:</p>
-<ol>
-<li>Demo apama <a href="https://github.com/thin-edge/thin-edge.io/raw/main/tests/PySys/plugin_apama/Input/quickstart.zip">project zip</a></li>
-<li>Demo apama <a href="https://github.com/thin-edge/thin-edge.io/raw/main/tests/PySys/plugin_apama/Input/TedgeTestMonitor.mon">monitor file</a></li>
-</ol>
-<p>Add these binaries as software packages in Cumulocity software repository by following the instructions in the previous section.
-Once added, this apama project can be installed on any target device.
-You can test if the project got successfully installed by running the following Apama command:</p>
+<p>Here is an Apama project that you can use to test this plugin.</p>
+<p><a href="https://github.com/thin-edge/thin-edge.io/raw/main/tests/PySys/plugin_apama/Input/quickstart.zip">project zip</a></p>
+<p>Add this project as a software package in the Cumulocity software repository by following the instructions in the previous section.
+Once added, this Apama project can be installed on any target device.
+You can test if the project was successfully installed by running the following Apama command:</p>
 <pre><code class="language-shell">/opt/softwareag/Apama/bin/apama_env engine_inspect -m
 </code></pre>
-<p>And you can expect an output like this:</p>
+<p>You can expect an output like this:</p>
 <pre><code class="language-console">Monitors
 ========
 Name                                               Num Sub Monitors
 ----                                               ----------------
 TedgeDemoMonitor                                             1
 </code></pre>
-<p>You can find more information on this apama project <a href="https://github.com/thin-edge/thin-edge.io_examples/tree/main/StreamingAnalytics#testing-a-project">here</a></p>
-<p>Once the project installation is validated successfully, you can install the demo monitor file as well just like you installed the project from Cumulocity.
-Once the installation succeeds, you can validate if this monitor file got injected successfully by running the same <code>engine_inspect</code> command and you should get an output like this with a second monitor in the list named <code>TedgeTestMonitor</code>:</p>
-<pre><code class="language-console">Monitors
-========
-Name                                               Num Sub Monitors
-----                                               ----------------
-TedgeDemoMonitor                                             1
-TedgeTestMonitor                                             1
-</code></pre>
+<p>You can find more information on this test Apama project <a href="https://github.com/thin-edge/thin-edge.io_examples/tree/main/StreamingAnalytics#testing-a-project">here</a>.</p>
 
                     </main>
 

@@ -248,9 +248,9 @@ sudo systemctl start tedge-mapper-collectd
 and emits the translated measurements in thin-edge.io JSON format to the <code>tedge/measurements</code> topic.
 You can inspect the collected and translated metrics, by subscribing to these topics:</p>
 <p>The metrics collected by <code>collectd</code> are emitted to subtopics named after the collectd plugin and the metric name:</p>
-<pre><code>$ tedge mqtt sub 'collectd/#'
-
-[collectd/raspberrypi/cpu/percent-active] 1623076679.154:0.50125313283208
+<pre><code class="language-shell">tedge mqtt sub 'collectd/#'
+</code></pre>
+<pre><code>[collectd/raspberrypi/cpu/percent-active] 1623076679.154:0.50125313283208
 [collectd/raspberrypi/memory/percent-used] 1623076679.159:1.10760866126707
 [collectd/raspberrypi/cpu/percent-active] 1623076680.154:0
 [collectd/raspberrypi/df-root/percent_bytes-used] 1623076680.158:71.3109359741211

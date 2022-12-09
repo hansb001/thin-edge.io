@@ -139,8 +139,8 @@
 and add layers, containing software that you need on your image. In this tutorial, we will add Thin Edge using the
 <code>meta-tedge</code> layer. For more information, see the <a href="https://www.yoctoproject.org/software-overview/">getting started document on Yocto Project
 website</a>.</p>
-<p><code>meta-tedge</code> is supported for <strong>Yocto version 3.4 &quot;Honister&quot; and 4.0 &quot;Kirkstone&quot;</strong>. Additionally, we will depend on <code>meta-openembedded</code>
-layer for Mosquitto.</p>
+<p><code>meta-tedge</code> is supported for <strong>Yocto version 3.4 &quot;Honister&quot; and 4.0 &quot;Kirkstone&quot;</strong>. Additionally, we will depend on
+<code>meta-openembedded</code> layer for Mosquitto.</p>
 <h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
 <p>If you are not familiar with building Yocto distribution or you have not configured your build host yet, we strongly
 recommend to look into <a href="https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html">official yocto documentation</a>
@@ -164,71 +164,219 @@ Project Development Tasks Manual.</li>
 <li>Python 3.6.0 or greater.</li>
 <li>gcc 5.0 or greater.</li>
 </ul>
-<p>For the purposes of the tutorial, we assume <code>~/yocto-thinedge</code> working directory. If using other directory, be sure to
+<blockquote>
+<p>For the purposes of the tutorial, we assume <code>/home/yocto/</code> working directory. If using other directory, be sure to
 change paths where needed.</p>
+</blockquote>
 <h3 id="build-host-packages"><a class="header" href="#build-host-packages">Build Host Packages</a></h3>
 <p>Install essential packages:</p>
-<pre><code class="language-bash">$ sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint3 xterm python3-subunit mesa-common-dev zstd liblz4-tool
+<pre><code class="language-bash">sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint3 xterm python3-subunit mesa-common-dev zstd liblz4-tool
 </code></pre>
 <h3 id="clone-poky-linux-repository"><a class="header" href="#clone-poky-linux-repository">Clone Poky Linux repository</a></h3>
 <p>Clone the Poky Linux distribution sources. We'll be using version <code>kirkstone</code>. You can use <code>--depth=1</code> to speed up the
 process. If using these options, to see previous commits or other branches see
 <a href="https://stackoverflow.com/questions/29270058/how-to-fetch-all-git-history-after-i-clone-the-repo-with-depth-1">here</a>
 and <a href="https://stackoverflow.com/questions/17714159/how-do-i-undo-a-single-branch-clone">here</a>.</p>
-<pre><code>$ git clone git://git.yoctoproject.org/poky --branch=kirkstone --depth=1
+<blockquote>
+<p>Alternatively, you could use <code>--branch=honister</code> for Yocto version 3.4 Honister. If doing so, remember to also use
+<code>--branch=honister</code> for all additional layers that require it.</p>
+</blockquote>
+<pre><code class="language-bash">git clone git://git.yoctoproject.org/poky --branch=kirkstone --depth=1
 </code></pre>
+<p>Resulting directory structure should look like this:</p>
+<pre><code>.
+└── poky
+    ├── bitbake
+    ├── contrib
+    ├── documentation
+    ├── LICENSE
+    ├── LICENSE.GPL-2.0-only
+    ├── LICENSE.MIT
+    ├── MAINTAINERS.md
+    ├── Makefile
+    ├── MEMORIAM
+    ├── meta
+    ├── meta-poky
+    ├── meta-selftest
+    ├── meta-skeleton
+    ├── meta-yocto-bsp
+    ├── oe-init-build-env
+    ├── README.hardware.md -&gt; meta-yocto-bsp/README.hardware.md
+    ├── README.md -&gt; README.poky.md
+    ├── README.OE-Core.md
+    ├── README.poky.md -&gt; meta-poky/README.poky.md
+    ├── README.qemu.md
+    └── scripts
+</code></pre>
+<h3 id="initialize-the-build-environment"><a class="header" href="#initialize-the-build-environment">Initialize the build environment</a></h3>
+<p>To use the <code>bitbake</code>, <code>bitbake-layers</code>, <code>runqemu</code>, or other tools used in yocto to create or run our build, we need to
+source the <code>poky/oe-init-build-env</code> script in our shell:</p>
+<pre><code>cd poky
+source oe-init-build-env
+</code></pre>
+<p>The script creates a <code>build</code> directory, which itself contains only a <code>conf</code> directory:</p>
+<pre><code>.
+└── poky
+    ├── build
+    │   └── conf
+    │       ├── bblayers.conf
+    │       ├── local.conf
+    │       └── templateconf.cfg
+    ...
+</code></pre>
+<p>The script prepares the environment such that we can run <code>bitbake</code> or <code>runqemu</code> in any directory, but <code>bitbake-layers</code>
+command must be run from <code>build</code> directory.</p>
+<p>Inside the <code>poky/build/conf</code> directory, there are 2 files of interest to us:</p>
+<ul>
+<li><code>bblayers.conf</code> contains all the layers used by build</li>
+<li><code>local.conf</code> contains local build configuration, ie. configuration that applies only to the build</li>
+</ul>
+<p>In the following steps, we will edit these files to customize our image.</p>
 <h3 id="add-layers"><a class="header" href="#add-layers">Add layers</a></h3>
-<p>We'll be using <code>meta-tedge</code> and <code>meta-openembedded</code>. First, fetch the repositories:</p>
-<pre><code class="language-bash">git clone https://github.com/thin-edge/meta-tedge
-git clone git://git.openembedded.org/meta-openembedded
+<p><code>oe-init-build-env</code> moved us to the <code>build</code> directory. <code>cd</code> back to the working directory and clone the <code>meta-tedge</code> and
+<code>meta-openembedded</code> repositories:</p>
+<pre><code class="language-bash">cd ../../
+git clone https://github.com/thin-edge/meta-tedge
+git clone --branch=kirkstone git://git.openembedded.org/meta-openembedded
 </code></pre>
-<p>Next, add the following layers:</p>
-<pre><code class="language-bash">bitbake-layers add-layer ~/yocto-thinedge/meta-openembedded/meta-oe
-bitbake-layers add-layer ~/yocto-thinedge/meta-openembedded/meta-python
-bitbake-layers add-layer ~/yocto-thinedge/meta-openembedded/meta-networking
-bitbake-layers add-layer ~/yocto-thinedge/meta-tedge
+<blockquote>
+<p>As with Poky itself, when cloning meta-openembedded either provide <code>--branch=kirkstone</code> for the clone command or
+manually <code>git switch kirkstone</code> in <code>meta-openembedded</code> repository after cloning. Some Yocto layers support different
+Yocto versions on different branches, in which case be sure to select correct branch. <code>meta-tedge</code> however supports 2
+versions, Honister and Kirkstone on the main branch, so there's no need to change the default branch.</p>
+</blockquote>
+<p>Resulting in the following directory structure:</p>
+<pre><code>.
+├── meta-openembedded
+├── meta-tedge
+└── poky
+</code></pre>
+<blockquote>
+<p>As these layers and <code>poky</code> are all different git repositories, we clone them next to the poky directory, but you can
+put them inside <code>poky</code> if you prefer. The only thing that matters is to use a correct path in the
+<code>poky/build/conf/bblayers.conf</code> file.</p>
+</blockquote>
+<p>Next, we add these layers to our build using <code>bitbake-layers</code> tool. Be aware that <code>meta-openembedded</code> is not itself a
+layer, but a collection of many layers. We need to run it from the <code>build</code> directory:</p>
+<pre><code class="language-bash">cd poky/build
+bitbake-layers add-layer /home/yocto/meta-openembedded/meta-oe
+bitbake-layers add-layer /home/yocto/meta-openembedded/meta-python
+bitbake-layers add-layer /home/yocto/meta-openembedded/meta-networking
+bitbake-layers add-layer /home/yocto/meta-tedge
+</code></pre>
+<p><code>bitbake-layers</code> tool adds the layer to our build by modyfying <code>poky/build/conf/bblayers.conf</code> file. You can verify the
+file contains the above layers, or if something is wrong with the tool, you can edit the file manually, adding the
+correct paths. The use of absolute paths is required.</p>
+<p>In <code>poky/build/conf/bblayers.conf</code>:</p>
+<pre><code># POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = &quot;2&quot;
 
+BBPATH = &quot;${TOPDIR}&quot;
+BBFILES ?= &quot;&quot;
+
+BBLAYERS ?= &quot; \
+  /home/yocto/poky/meta \
+  /home/yocto/poky/meta-poky \
+  /home/yocto/poky/meta-yocto-bsp \
+  /home/yocto/meta-openembedded/meta-oe \
+  /home/yocto/meta-openembedded/meta-python \
+  /home/yocto/meta-openembedded/meta-networking \
+  /home/yocto/meta-tedge \
+  &quot;
 </code></pre>
-<h3 id="configure-the-build"><a class="header" href="#configure-the-build">Configure the build</a></h3>
-<p>Activate <code>Systemd</code> as default init manager by adding following line to <code>local.conf</code>:</p>
+<h3 id="use-systemd-init-manager"><a class="header" href="#use-systemd-init-manager">Use systemd init manager</a></h3>
+<p>For thin-edge to work, it has to run some setup scripts upon the first boot and interact with system services via the
+init system. Right now, <code>meta-tedge</code> only supports systemd init manager. The default in yocto is initrd, thus we have to
+change it.</p>
+<blockquote>
+<p>This, and any successive changes to the build configuration should happen only in your local configuration, ie.
+<code>poky/build/conf/local.conf</code> or in configuration files of layers you create yourself. Changing any files in layers you
+do not control - in our example <code>meta-tedge</code> or any of the layers in <code>meta-openembedded</code> - is discouraged, because any
+changes you make to them may be lost when you update the layer.</p>
+</blockquote>
+<p>Activate <code>systemd</code> as default init manager by adding following line to <code>poky/build/conf/local.conf</code>:</p>
 <pre><code>INIT_MANAGER=&quot;systemd&quot;
 </code></pre>
-<p>Build <code>tedge</code> by running following command :</p>
-<pre><code class="language-bash">$ bitbake tedge-full-image
+<h3 id="use-apt-package-manager-optional"><a class="header" href="#use-apt-package-manager-optional">Use apt package manager (optional)</a></h3>
+<p>In Yocto one can enable a package manager for installing or removing packages during runtime. To
+include a package manager in our build, we need to add <code>package-management</code> feature:</p>
+<p>In <code>poky/build/conf/local.conf</code>, add the following line:</p>
+<pre><code>EXTRA_IMAGE_FEATURES += &quot;package-management&quot;
 </code></pre>
-<h3 id="run-the-build"><a class="header" href="#run-the-build">Run the build</a></h3>
-<p>When the build it complete, run it with qemu:</p>
-<pre><code class="language-bash">$ runqemu nographic
+<p>Additionally, we can choose between 3 available package formats, and their associated package managers.
+Let us use <code>deb</code> package format and the apt package manager:</p>
+<p>In <code>poky/build/conf/local.conf</code> find the following section and change <code>PACKAGE_CLASSES</code> from <code>package_rpm</code> to
+<code>package_deb</code> as such:</p>
+<pre><code>#
+# Package Management configuration
+#
+# This variable lists which packaging formats to enable. Multiple package backends
+# can be enabled at once and the first item listed in the variable will be used
+# to generate the root filesystems.
+# Options are:
+#  - 'package_deb' for debian style deb files
+#  - 'package_ipk' for ipk files are used by opkg (a debian style embedded package manager)
+#  - 'package_rpm' for rpm style packages
+# E.g.: PACKAGE_CLASSES ?= &quot;package_rpm package_deb package_ipk&quot;
+# We default to rpm:
+PACKAGE_CLASSES ?= &quot;package_deb&quot;
 </code></pre>
-<h2 id="further-recommendations"><a class="header" href="#further-recommendations">Further recommendations</a></h2>
-<p>After building the reference distribution and image, you can explore creating your own layer and image, and then
-integrating <code>tedge-*</code> recipes for it. </p>
-<h3 id="configure-and-run-the-layer-on-raspberry-pi-device"><a class="header" href="#configure-and-run-the-layer-on-raspberry-pi-device">Configure and run the layer on Raspberry Pi device</a></h3>
+<h3 id="build-and-run"><a class="header" href="#build-and-run">Build and run</a></h3>
+<p>Finally, build the image and run it in the emulator.</p>
+<p>Build <code>tedge-full-image</code> by running following command, from any directory:</p>
+<pre><code class="language-bash">bitbake tedge-full-image
+</code></pre>
+<p>Bitbake tool will begin the building process, and all build artifacts will be put in <code>poky/build/tmp</code> directory.</p>
+<p>When the build it complete, run it with qemu from any directory. It will automatically run the latest image built. We'll
+use <code>nographic</code> option to run the emulator inside the current terminal, so that we may copy-paste from our system
+clipboard, which wouldn't work in an external window. If this is not necessary, or if you run a graphical image, such as
+<code>core-image-sato</code>, you can omit this option.</p>
 <blockquote>
-<p>Note: following installation process will base on tutorial from the previous chapter</p>
+<p>For more information about runqemu tool, see <a href="https://docs.yoctoproject.org/4.0.5/dev-manual/qemu.html">Using the Quick EMUlator
+(QEMU)</a> in Yocto Development Tasks manual.</p>
 </blockquote>
+<pre><code class="language-bash">runqemu nographic
+</code></pre>
+<p>After booting up, there will be a prompt to login. Login as <code>root</code>, password won't be required for the default
+configuration.</p>
+<h3 id="configure-and-run-the-layer-on-raspberry-pi-device"><a class="header" href="#configure-and-run-the-layer-on-raspberry-pi-device">Configure and run the layer on Raspberry Pi device</a></h3>
 <p>After successful run in qemu, we can run it on raspberry pi by adjusting our build to a proper architecture.</p>
-<p>To do that, we will use <code>meta-raspberrypi</code> layer that we need to fetch and <code>meta-openembedded</code> that we fetched previously:</p>
+<p>To do that, we will use <code>meta-raspberrypi</code> layer that we need to fetch and <code>meta-openembedded</code> that we fetched
+previously:</p>
 <pre><code class="language-bash">git clone -b kirkstone https://github.com/agherzan/meta-raspberrypi.git
 </code></pre>
-<p>According to the <code>meta-raspberrypi/README.md</code>, we have all the dependencies added to the layer except <code>meta-multimedia</code> that we need to add with <code>add-layer</code> subcommand. After that, we can add <code>meta-raspberrypi</code> itself:</p>
+<p>According to the <code>meta-raspberrypi/README.md</code>, we have all the dependencies added to the layer except <code>meta-multimedia</code>
+that we need to add with <code>add-layer</code> subcommand. After that, we can add <code>meta-raspberrypi</code> itself:</p>
 <pre><code class="language-bash">bitbake-layers add-layer ~/yocto-thinedge/meta-openembedded/meta-networking
 bitbake-layers add-layer ~/yocto-thinedge/meta-raspberrypi
 </code></pre>
-<p>Next, we open up <code>conf/local.conf</code> and find this line:</p>
-<pre><code class="language-bash">MACHINE ??= &quot;qemux86-64&quot;
+<p>Next, we open up <code>poky/build/conf/local.conf</code> and find this line:</p>
+<pre><code>MACHINE ??= &quot;qemux86-64&quot;
 </code></pre>
-<p>It denotes which platform we are targeting. Select the one that fits that platform you'd like to build an image for. All available platforms can be found in <code>meta-raspberrypi/machine/</code> directory. In our case, we target Raspberry Pi 3 in 64-bit mode:</p>
-<pre><code class="language-bash">MACHINE = &quot;raspberrypi3-64&quot;
+<p>It denotes which platform we are targeting. Select the one that fits that platform you'd like to build an image for. All
+available platforms can be found in <code>meta-raspberrypi/machine/</code> directory. In our case, we target Raspberry Pi 3 in
+64-bit mode:</p>
+<pre><code>MACHINE = &quot;raspberrypi3-64&quot;
 </code></pre>
-<p>We can also change the specific configuration of the Raspberry Pi machine. In <code>meta-raspberrypi/docs/extra-build-config.md</code> we can find a variety of <code>local.conf</code> definitions that you can use to enable/disable/modify functionality of a device, e.g to access a shell via the UART, add following line to <code>local.conf</code> file:</p>
-<pre><code class="language-bash">ENABLE_UART = &quot;1&quot;
+<p>We can also change the specific configuration of the Raspberry Pi machine. In
+<code>meta-raspberrypi/docs/extra-build-config.md</code> we can find a variety of <code>local.conf</code> definitions that you can use to
+enable/disable/modify functionality of a device, e.g to access a shell via the UART, add following line to
+<code>poky/build/conf/local.conf</code> file:</p>
+<pre><code>ENABLE_UART = &quot;1&quot;
 </code></pre>
 <p>After we finish the configuration, we can build an image using <code>tedge-full-image</code>:</p>
-<pre><code class="language-bash">$ bitbake tedge-full-image
+<pre><code class="language-bash">bitbake tedge-full-image
 </code></pre>
-<p>Once the build is complete, the image will be located in <code>/tmp/deploy/images/$MACHINE/</code> directory where <code>$MACHINE</code> denotes your target platform. Copy the image to the SD card and run your device. </p>
-<p>To make Yocto run on another hardware, check other layers in the <a href="https://layers.openembedded.org/layerindex/branch/master/layers/">OpenEmbedded Layer Index</a>.</p>
+<p>Once the build is complete, the image will be located in <code>/tmp/deploy/images/$MACHINE/</code> directory where <code>$MACHINE</code>
+denotes your target platform. Copy the image to the SD card and run your device.</p>
+<blockquote>
+<p>To make Yocto run on another hardware, check other layers in the <a href="https://layers.openembedded.org/layerindex/branch/master/layers/">OpenEmbedded Layer
+Index</a>.</p>
+</blockquote>
+<h2 id="further-recommendations"><a class="header" href="#further-recommendations">Further recommendations</a></h2>
+<p>After building the reference distribution and image, you can explore creating your own layer and image, and then
+integrating <code>tedge-*</code> recipes for it.</p>
 
                     </main>
 

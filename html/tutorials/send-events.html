@@ -214,7 +214,7 @@ For example, if the device is connected to Cumulocity IoT cloud platform, the Cu
 </code></pre>
 <p>Here is a sample event triggered for a <code>login_event</code> event type for the <code>external_sensor</code> child device:</p>
 <p>Command to send the event from a external device as below:</p>
-<pre><code class="language-shell">$ sudo tedge mqtt pub tedge/events/login_event/external_sensor '{
+<pre><code class="language-shell">sudo tedge mqtt pub tedge/events/login_event/external_sensor '{
     &quot;type&quot;:&quot;login_event&quot;,
     &quot;text&quot;:&quot;A user just logged in&quot;,
     &quot;time&quot;:&quot;2021-01-01T05:30:45+00:00&quot;

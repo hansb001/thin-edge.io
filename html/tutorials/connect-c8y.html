@@ -166,10 +166,10 @@ See this <a href="connect-azure.html">tutorial</a>, if you want to connect Azure
 <h2 id="configure-the-device"><a class="header" href="#configure-the-device">Configure the device</a></h2>
 <p>To connect the device to the Cumulocity IoT, one needs to set the URL of your Cumulocity IoT tenant and the root certificate as below.</p>
 <p>Set the URL of your Cumulocity IoT tenant.</p>
-<pre><code>$ sudo tedge config set c8y.url your-tenant.cumulocity.com
+<pre><code>sudo tedge config set c8y.url your-tenant.cumulocity.com
 </code></pre>
 <p>Set the path to the root certificate if necessary. The default is <code>/etc/ssl/certs</code>.</p>
-<pre><code>$ sudo tedge config set c8y.root.cert.path /etc/ssl/certs
+<pre><code>sudo tedge config set c8y.root.cert.path /etc/ssl/certs
 </code></pre>
 <p>This will set the root certificate path of the Cumulocity IoT.
 In most of the Linux flavors, the certificate will be present in /etc/ssl/certs.
@@ -177,7 +177,7 @@ If not found download it from <a href="https://www.identrust.com/dst-root-ca-x3"
 <h2 id="connecting-to-cumulocity-server-signed-with-self-signed-certificate"><a class="header" href="#connecting-to-cumulocity-server-signed-with-self-signed-certificate">Connecting to Cumulocity server signed with self-signed certificate</a></h2>
 <p>If the Cumulocity IoT instance that you're connecting to, is signed with a self-signed certificate(eg: Cumulocity IoT Edge instance),
 then the path to that server certificate must be set as the c8y.root.cert.path as follows:</p>
-<pre><code>$ sudo tedge config set c8y.root.cert.path /path/to/the/self-signed/certificate
+<pre><code>sudo tedge config set c8y.root.cert.path /path/to/the/self-signed/certificate
 </code></pre>
 <blockquote>
 <p>Note: This is the certificate chain of the server and not the device's certificate kept at /etc/tedge/device-certs directory.</p>
@@ -191,11 +191,12 @@ third-party tools like openssl command as follows (to be adjusted based on your 
 This identifier will be used to uniquely identify your devices among others in your cloud tenant.
 This identifier will be also used as the Common Name (CN) of the certificate.
 Indeed, this certificate aims to authenticate that this device is actually the device with that identity.</p>
-<pre><code>$ sudo tedge cert create --device-id my-device
+<pre><code>sudo tedge cert create --device-id my-device
 </code></pre>
 <p>You can then check the content of that certificate.</p>
-<pre><code>$ sudo tedge cert show
-Device certificate: /etc/tedge/device-certs/tedge-certificate.pem
+<pre><code class="language-shell">sudo tedge cert show
+</code></pre>
+<pre><code>Device certificate: /etc/tedge/device-certs/tedge-certificate.pem
 Subject: CN=my-device, O=Thin Edge, OU=Test Device
 Issuer: CN=my-device, O=Thin Edge, OU=Test Device
 Valid from: Tue, 09 Feb 2021 17:16:52 +0000
@@ -218,7 +219,7 @@ This can be done:</p>
 to your tenant &quot;Device Management/Management/Trusted certificates&quot;.</li>
 <li>or using the <code>tedge cert upload c8y</code> command.</li>
 </ul>
-<pre><code>$ sudo tedge cert upload c8y --user &lt;username&gt;
+<pre><code class="language-shell">sudo tedge cert upload c8y --user &lt;username&gt;
 </code></pre>
 <blockquote>
 <p>To upload the certificate to cumulocity this user needs to have &quot;Tenant management&quot; admin rights. If you get an error 503 here, check the appropriate rights in cumulocity user management.</p>
@@ -233,8 +234,9 @@ This command configures the MQTT broker:</p>
 <p>Also, if you have installed <code>tedge_mapper</code>, this command starts and enables the tedge-mapper-c8y systemd service.
 At last, it sends packets to Cumulocity to check the connection.
 If your device is not yet registered, you will find the digital-twin created in your tenant after <code>tedge connect c8y</code>!</p>
-<pre><code class="language-shell">$ sudo tedge connect c8y
-Checking if systemd is available.
+<pre><code class="language-shell">sudo tedge connect c8y
+</code></pre>
+<pre><code>Checking if systemd is available.
 
 Checking if configuration for requested bridge already exists.
 
@@ -279,7 +281,7 @@ tedge-agent service successfully started and enabled!
 Any messages sent to one of these topics will be forwarded to Cumulocity.
 The messages are expected to have a format specific to each topic.
 Here, we use <code>tedge mqtt pub</code> a raw Cumulocity SmartRest message to be understood as a temperature of 20 Celsius.</p>
-<pre><code>$ tedge mqtt pub c8y/s/us 211,20
+<pre><code class="language-shell">tedge mqtt pub c8y/s/us 211,20
 </code></pre>
 <p>To check that this message has been received by Cumulocity,
 navigate to &quot;Device Management/Devices/All devices/&lt;your device id&gt;/Measurements&quot;.

@@ -193,6 +193,33 @@ The <code>Mosquitto</code> logs can be found in <code>/var/log/mosquitto/mosquit
 Collectd logs all the messages at <code>/var/log/syslog</code>.
 So, the collectd specific logs can be accessed using the <code>journalctl</code> as below</p>
 <p><code>journalctl -u collectd.service</code></p>
+<h2 id="configuring-log-levels-in-thin-edgeio"><a class="header" href="#configuring-log-levels-in-thin-edgeio">Configuring log levels in <code>thin-edge.io</code></a></h2>
+<p>The log levels can be configured for <code>thin-edge.io</code> services using either by command line or setting the required log
+level in <code>system.toml</code></p>
+<h3 id="setting-the-log-level-through-cli"><a class="header" href="#setting-the-log-level-through-cli">Setting the log level through Cli</a></h3>
+<p>The log level can be enabled for a <code>thin-edge.io</code> service as below</p>
+<p>For example for tedge_mapper:</p>
+<pre><code class="language-shell">
+sudo -u tedge -- tedge_mapper  --debug c8y
+
+</code></pre>
+<blockquote>
+<p>Note: In a similar way it can be set for all the <code>thin-edge.io</code> services.
+Only <code>debug</code> level can be set through cli. Also, it enables <code>trace</code> level.</p>
+</blockquote>
+<h3 id="setting-log-level-through-systemtoml"><a class="header" href="#setting-log-level-through-systemtoml">Setting <code>log level</code> through <code>system.toml</code></a></h3>
+<p>The log levels can also be configured through the <code>system.toml</code> file.
+The supported log levels are <code>info, warn, error, trace, debug</code>.</p>
+<pre><code class="language-shell">[log]
+tedge_mapper = &quot;trace&quot;
+tedge_agent = &quot;info&quot;
+tedge_watchdog = &quot;debug&quot;
+c8y_log_plugin = &quot;warn&quot;
+c8y_configuration_plugin = &quot;error&quot;
+</code></pre>
+<blockquote>
+<p>Note: The log level strings are case insensitive</p>
+</blockquote>
 
                     </main>
 

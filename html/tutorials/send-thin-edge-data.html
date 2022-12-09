@@ -150,7 +150,7 @@ For a more detailed specification of this data format, refer to <a href="../arch
 Processes running on the Thin Edge device can publish messages to the local MQTT broker using any MQTT client or library.
 In this tutorial, we'll be using the <code>tedge mqtt pub</code> command line utility for demonstration purposes.</p>
 <p>The temperature measurement described above can be sent using the <code>tedge mqtt pub</code> command as follows:</p>
-<pre><code class="language-shell">$ tedge mqtt pub tedge/measurements '{ &quot;temperature&quot;: 25 }'
+<pre><code class="language-shell">tedge mqtt pub tedge/measurements '{ &quot;temperature&quot;: 25 }'
 </code></pre>
 <p>The first argument to the <code>tedge mqtt pub</code> command is the topic to which the measurements must be published to.
 The second argument is the Thin Edge JSON representation of the measurement itself.</p>
@@ -197,7 +197,7 @@ data that can be represented in Thin Edge JSON format and the reserved fields li
 <p>If valid Thin Edge JSON measurements are published to the <code>tedge/measurements/&lt;child-id&gt;</code> topic,
 the measurements are recorded under a child device of your thin-edge.io device.</p>
 <p>Given your desired child device ID is <code>child1</code>, publish a Thin Edge JSON message to the <code>tedge/measurements/child1</code> topic:</p>
-<pre><code class="language-shell">$ tedge mqtt pub tedge/measurements/child1 '{ &quot;temperature&quot;: 25 }'
+<pre><code class="language-shell">tedge mqtt pub tedge/measurements/child1 '{ &quot;temperature&quot;: 25 }'
 </code></pre>
 <p>Then, you will see a child device with the name <code>child1</code> is created in your Cumulocity IoT tenant,
 and the measurement is recorded in <code>Measurements</code> of the <code>child1</code> device.</p>
@@ -207,7 +207,7 @@ sent to the cloud but instead you'll get a feedback on the <code>tedge/errors</c
 The error messages published to this topic will be highly verbose and may change in the future.
 So, use it only for debugging purposes during the development phase and it should <strong>not</strong> be used for any automation.</p>
 <p>You can use the <code>tedge mqtt sub</code> command to subscribe to the error topic as follows:</p>
-<pre><code class="language-shell">$ tedge mqtt sub tedge/errors
+<pre><code class="language-shell">tedge mqtt sub tedge/errors
 </code></pre>
 
                     </main>

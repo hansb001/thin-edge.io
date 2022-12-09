@@ -171,13 +171,15 @@ For example, if <code>template-1</code> is already configured on the device, as 
 <pre><code class="language-shell">tedge config unset c8y.smartrest.templates
 </code></pre>
 <p>To remove one of existing templates you can overwrite the existing <code>c8y.smartrest.templates</code> with the new set which doesn't contain the unwanted template.</p>
-<pre><code class="language-shell">$ tedge config get c8y.smartrest.templates
-[&quot;template-1&quot;, &quot;template-2&quot;]
+<pre><code class="language-shell">tedge config get c8y.smartrest.templates
+</code></pre>
+<pre><code class="language-toml">[&quot;template-1&quot;, &quot;template-2&quot;]
 </code></pre>
 <pre><code class="language-shell">tedge config set c8y.smartrest.templates template-1
 </code></pre>
-<pre><code class="language-shell">$ tedge config get c8y.smartrest.templates
-[&quot;template-1&quot;]
+<pre><code class="language-shell">tedge config get c8y.smartrest.templates
+</code></pre>
+<pre><code class="language-toml">[&quot;template-1&quot;]
 </code></pre>
 
                     </main>

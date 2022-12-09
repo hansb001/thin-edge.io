@@ -228,13 +228,15 @@ to declare that this plugin supports two Cumulocity operations:
 uploading and downloading configuration files
 (which respective SmartRest2 codes are <code>526</code> and <code>524</code>).</p>
 <p>These two files can be created using the <code>c8y_configuration_plugin --init</code> option:</p>
-<pre><code class="language-shell">$ sudo c8y_configuration_plugin --init
-
-$ ls -l /etc/tedge/operations/c8y/c8y_UploadConfigFile
--rw-r--r-- 1 tedge tedge 95 Mar 22 14:24 /etc/tedge/operations/c8y/c8y_UploadConfigFile
-  
-$ ls -l /etc/tedge/operations/c8y/c8y_DownloadConfigFile
--rw-r--r-- 1 tedge tedge 97 Mar 22 14:24 /etc/tedge/operations/c8y/c8y_DownloadConfigFile
+<pre><code class="language-shell">sudo c8y_configuration_plugin --init
+</code></pre>
+<pre><code class="language-shell">ls -l /etc/tedge/operations/c8y/c8y_UploadConfigFile
+</code></pre>
+<pre><code>-rw-r--r-- 1 tedge tedge 95 Mar 22 14:24 /etc/tedge/operations/c8y/c8y_UploadConfigFile
+</code></pre>
+<pre><code class="language-shell">ls -l /etc/tedge/operations/c8y/c8y_DownloadConfigFile
+</code></pre>
+<pre><code>-rw-r--r-- 1 tedge tedge 97 Mar 22 14:24 /etc/tedge/operations/c8y/c8y_DownloadConfigFile
 </code></pre>
 <p>The configuration plugin can also act as configuration proxy for child-devices.
 For that to work for a child device named <code>$CHILD_DEVICE_ID</code>,
@@ -242,12 +244,14 @@ two files must be added under <code>/etc/tedge/operations/c8y/$CHILD_DEVICE_ID</
 in order to declare the associated capabilities to Cumulocity.
 These files are just empty files owned by the <code>tedge</code> user.</p>
 <p>These two files are created by the plugin when the child-device agent uploads its supported configuration list to thin-edge.</p>
-<pre><code class="language-shell">$ ls -l /etc/tedge/operations/c8y/child-1
--rw-r--r-- 1 tedge tedge 97 Mar 22 14:24 /etc/tedge/operations/c8y/child-1/c8y_DownloadConfigFile
+<pre><code class="language-shell">ls -l /etc/tedge/operations/c8y/child-1
+</code></pre>
+<pre><code>-rw-r--r-- 1 tedge tedge 97 Mar 22 14:24 /etc/tedge/operations/c8y/child-1/c8y_DownloadConfigFile
 -rw-r--r-- 1 tedge tedge 95 Mar 22 14:24 /etc/tedge/operations/c8y/child-1/c8y_UploadConfigFile
-  
-$ ls -l /etc/tedge/operations/c8y/child-2
--rw-r--r-- 1 tedge tedge 97 Mar 22 14:24 /etc/tedge/operations/c8y/child-2/c8y_DownloadConfigFile
+</code></pre>
+<pre><code class="language-shell">ls -l /etc/tedge/operations/c8y/child-2
+</code></pre>
+<pre><code>-rw-r--r-- 1 tedge tedge 97 Mar 22 14:24 /etc/tedge/operations/c8y/child-2/c8y_DownloadConfigFile
 -rw-r--r-- 1 tedge tedge 95 Mar 22 14:24 /etc/tedge/operations/c8y/child-2/c8y_UploadConfigFile
 </code></pre>
 <p>The <code>c8y_configuration_plugin</code> has to be run as a daemon on the device, the latter being connected to Cumulocity.</p>
@@ -256,8 +260,9 @@ one can observe on the MQTT bus of the thin-edge device
 the messages sent to Cumulocity to declare the capabilities of the main and child devices.
 Here, the capabilities to upload and download configuration files
 (possibly with other capabilities added independently):</p>
-<pre><code class="language-shell">$ tedge mqtt sub 'c8y/s/us/#'
-[c8y/s/us] 114,c8y_Restart,c8y_SoftwareList,c8y_UploadConfigFile,c8y_DownloadConfigFile
+<pre><code class="language-shell">tedge mqtt sub 'c8y/s/us/#'
+</code></pre>
+<pre><code>[c8y/s/us] 114,c8y_Restart,c8y_SoftwareList,c8y_UploadConfigFile,c8y_DownloadConfigFile
 [c8y/s/us/child-1] 114,c8y_UploadConfigFile,c8y_DownloadConfigFile
 [c8y/s/us/child-2] 114,c8y_UploadConfigFile,c8y_DownloadConfigFile
 </code></pre>
@@ -276,13 +281,14 @@ These are only used when a configuration file pushed from the cloud doesn't exis
 When a configuration file is already present on the device, this plugin never changes file ownership,
 ignoring these parameters.</li>
 </ul>
-<pre><code class="language-shell">$ cat /etc/tedge/c8y/c8y-configuration-plugin.toml
-files = [
-    { path = '/etc/tedge/tedge.toml', type = 'tedge.toml' },
-    { path = '/etc/tedge/mosquitto-conf/c8y-bridge.conf' },
-    { path = '/etc/tedge/mosquitto-conf/tedge-mosquitto.conf' },
-    { path = '/etc/mosquitto/mosquitto.conf', type = 'mosquitto', user = 'mosquitto', group = 'mosquitto', mode = 0o644 }
-  ]
+<pre><code class="language-shell">cat /etc/tedge/c8y/c8y-configuration-plugin.toml
+</code></pre>
+<pre><code class="language-toml">files = [
+  { path = '/etc/tedge/tedge.toml', type = 'tedge.toml' },
+  { path = '/etc/tedge/mosquitto-conf/c8y-bridge.conf' },
+  { path = '/etc/tedge/mosquitto-conf/tedge-mosquitto.conf' },
+  { path = '/etc/mosquitto/mosquitto.conf', type = 'mosquitto', user = 'mosquitto', group = 'mosquitto', mode = 0o644 }
+]
 </code></pre>
 <p>Along this <code>c8y_configuration_plugin</code> configuration for the main device,
 the configuration plugin expects a configuration file per child device
@@ -301,20 +307,23 @@ and on change of the <code>c8y/$CHILD_DEVICE_ID/c8y-configuration-plugin.toml</c
 notably when used by the child device,
 but will not be used by the main device if provided.</li>
 </ul>
-<pre><code class="language-shell">$ ls /etc/tedge/c8y/*/c8y-configuration-plugin.toml
-/etc/tedge/c8y/child-1/c8y-configuration-plugin.toml 
+<pre><code class="language-shell">ls /etc/tedge/c8y/*/c8y-configuration-plugin.toml
+</code></pre>
+<pre><code>/etc/tedge/c8y/child-1/c8y-configuration-plugin.toml 
 /etc/tedge/c8y/child-2/c8y-configuration-plugin.toml
-
-$ cat /etc/tedge/c8y/child-1/c8y-configuration-plugin.toml
-files = [
-    { path = '/var/camera.conf', type = 'camera' },
-    { path = '/var/sounds.conf', type = 'sounds' },
-  ]
-
-$ cat /etc/tedge/c8y/child-2/c8y-configuration-plugin.toml
-files = [
-    { path = '/var/ai/model' },
-  ]
+</code></pre>
+<pre><code class="language-shell">cat /etc/tedge/c8y/child-1/c8y-configuration-plugin.toml
+</code></pre>
+<pre><code class="language-toml">files = [
+  { path = '/var/camera.conf', type = 'camera' },
+  { path = '/var/sounds.conf', type = 'sounds' },
+]
+</code></pre>
+<pre><code class="language-shell">cat /etc/tedge/c8y/child-2/c8y-configuration-plugin.toml
+</code></pre>
+<pre><code class="language-toml">files = [
+  { path = '/var/ai/model' },
+]
 </code></pre>
 <p>On start and when one of these files is updated, the configuration plugin sends
 one <a href="https://cumulocity.com/guides/10.14.0/reference/smartrest-two/#119"><code>119 SmartRest2 message</code></a> per device
@@ -322,8 +331,9 @@ to Cumulocity with the set of <code>type</code>s listed by the configuration
 (adding implicitly the <code>c8y-configuration-plugin</code> themselves).
 These messages can be observed over the MQTT bus of the thin-edge device.
 In the case of the example, 3 messages are sent - one for the main device and 2 for the child devices:</p>
-<pre><code class="language-shell">$ tedge mqtt sub 'c8y/s/us/#'
-[c8y/s/us] 119,c8y-configuration-plugin,tedge.toml,/etc/tedge/mosquitto-conf/c8y-bridge.conf,/etc/tedge/mosquitto-conf/tedge-mosquitto.conf,mosquitto
+<pre><code class="language-shell">tedge mqtt sub 'c8y/s/us/#'
+</code></pre>
+<pre><code>[c8y/s/us] 119,c8y-configuration-plugin,tedge.toml,/etc/tedge/mosquitto-conf/c8y-bridge.conf,/etc/tedge/mosquitto-conf/tedge-mosquitto.conf,mosquitto
 [c8y/s/us/child-1] 119,c8y-configuration-plugin,camera,sounds
 [c8y/s/us/child-2] 119,c8y-configuration-plugin,/var/ai/model
 </code></pre>
@@ -354,8 +364,9 @@ by the configuration of thin-edge:</p>
 before being copied atomically to their targets.</li>
 </ul>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
-<pre><code class="language-shell">$ c8y_configuration_plugin --help
-c8y_configuration_plugin 0.6.2
+<pre><code class="language-shell">c8y_configuration_plugin --help
+</code></pre>
+<pre><code>c8y_configuration_plugin 0.6.2
 Thin-edge device configuration management for Cumulocity
 
 USAGE:

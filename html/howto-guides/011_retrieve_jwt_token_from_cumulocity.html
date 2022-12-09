@@ -141,10 +141,10 @@ a device can retrieve a JWT token using MQTT.</p>
 <h2 id="retrieving-the-token"><a class="header" href="#retrieving-the-token">Retrieving the token</a></h2>
 <p>Follow the below steps in order to retrieve the token from the Cumulocity cloud using MQTT.</p>
 <p>Subscribe to <code>c8y/s/dat</code> topic</p>
-<pre><code>$ tedge mqtt sub c8y/s/dat --no-topic
+<pre><code>tedge mqtt sub c8y/s/dat --no-topic
 </code></pre>
 <p>Publish an empty message on <code>c8y/s/uat</code> topic</p>
-<pre><code>$ tedge mqtt pub c8y/s/uat ''
+<pre><code>tedge mqtt pub c8y/s/uat ''
 </code></pre>
 <p>After a while the token will be published on the subscribed topic <code>c8y/s/dat</code> in the below format</p>
 <p>71,[Base64 encoded JWT token]</p>

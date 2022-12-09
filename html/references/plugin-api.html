@@ -212,8 +212,9 @@ It can be a one sentence summary of the error, redirecting the administrator to 
 <h3 id="the-list-command"><a class="header" href="#the-list-command">The <code>list</code> command</a></h3>
 <p>When called with the <code>list</code> command, a plugin returns the list of software modules that have been installed with this plugin,
 using tab separated values.</p>
-<pre><code class="language-shell">$ debian-plugin list
-...
+<pre><code class="language-shell">debian-plugin list
+</code></pre>
+<pre><code>...
 collectd-core  5.8.1-1.3
 mosquitto   1.5.7-1+deb10u1
 ...
@@ -228,11 +229,11 @@ If there is no version for a module, then the trailing tabulation is not require
 </ul>
 <h3 id="the-prepare-command"><a class="header" href="#the-prepare-command">The <code>prepare</code> command</a></h3>
 <p>The <code>prepare</code> command is invoked by the sm-agent before a sequence of install and remove commands</p>
-<pre><code class="language-shell">$ /etc/tedge/sm-plugins/debian prepare
-$ /etc/tedge/sm-plugins/debian install x
-$ /etc/tedge/sm-plugins/debian install y
-$ /etc/tedge/sm-plugins/debian remove z
-$ /etc/tedge/sm-plugins/debian finalize
+<pre><code class="language-shell">/etc/tedge/sm-plugins/debian prepare
+/etc/tedge/sm-plugins/debian install x
+/etc/tedge/sm-plugins/debian install y
+/etc/tedge/sm-plugins/debian remove z
+/etc/tedge/sm-plugins/debian finalize
 </code></pre>
 <p>For many plugins this command will do nothing. However, It gives an opportunity to the plugin to:</p>
 <ul>
@@ -268,7 +269,7 @@ even if all the atomic actions has been successfully completed.</li>
 </ul>
 <h3 id="the-install-command"><a class="header" href="#the-install-command">The <code>install</code> command</a></h3>
 <p>The <code>install</code> command installs a software module, possibly of some expected version.</p>
-<pre><code class="language-shell">$ plugin install NAME [--module-version VERSION] [--file FILE]
+<pre><code class="language-shell">plugin install NAME [--module-version VERSION] [--file FILE]
 </code></pre>
 <p>Contract:</p>
 <ul>
@@ -327,7 +328,7 @@ If the plugin manage concurrent versions, the module <code>foo</code> might also
 </ul>
 <h3 id="the-remove-command"><a class="header" href="#the-remove-command">The <code>remove</code> command</a></h3>
 <p>The <code>remove</code> command uninstalls a software module, and possibly its dependencies if no other modules are dependent on those.</p>
-<pre><code class="language-shell">$ plugin remove NAME [--module-version VERSION]
+<pre><code class="language-shell">plugin remove NAME [--module-version VERSION]
 </code></pre>
 <p>Contract:</p>
 <ul>
@@ -369,7 +370,7 @@ This can be needed when order of processing software modules is relevant - e.g. 
 # and passing to plugin's stdin via pipe:
 # NOTE that each argument is tab separated:
 
-$ echo '\
+echo '\
   install	name1	version1
   install	name2		path2
   remove	name3	version3
@@ -404,7 +405,7 @@ package-by-package using original commands <code>install</code> and <code>remove
 <li>An overall error must be reported (via process's exit status) when at least one software module operation has failed.</li>
 </ul>
 <p>Example how to invoke that plugin command <code>update-list</code>. Note that each argument is tab separated:</p>
-<pre><code class="language-shell">$ plugin update-list &lt;&lt;EOF
+<pre><code class="language-shell">plugin update-list &lt;&lt;EOF
   install	name1	version1
   install	name2		path2
   remove	name3	version3
@@ -412,10 +413,10 @@ package-by-package using original commands <code>install</code> and <code>remove
 EOF
 </code></pre>
 <p>That is equivalent to use of original commands (<code>install</code> and <code>remove</code>):</p>
-<pre><code class="language-shell">$ plugin install name1 --module-version version1
-$ plugin install name2 --module-path path2
-$ plugin remove &quot;name 3&quot; --module-version version3
-$ plugin remove name4
+<pre><code class="language-shell">plugin install name1 --module-version version1
+plugin install name2 --module-path path2
+plugin remove &quot;name 3&quot; --module-version version3
+plugin remove name4
 </code></pre>
 <p>Exemplary implementation of a shell script for parsing software list from <code>stdin</code>:</p>
 <p>Note that this example works only in bash.</p>

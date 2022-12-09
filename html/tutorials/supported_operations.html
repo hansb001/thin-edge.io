@@ -171,7 +171,7 @@ The operation files can be dynamically added and removed.</p>
 <p>You can obtain the current list of supported operations by listing the content of the <code>/etc/tedge/operations</code> directory.
 This directory should have permissions set to <code>755</code> and the owner to <code>tedge</code>.
 This directory will contain a set subdirectories based on cloud providers currently supported eg:</p>
-<pre><code class="language-shell">$ ls -l /etc/tedge/operations
+<pre><code class="language-shell">ls -l /etc/tedge/operations
 
 drwxr-xr-x 2 tedge tedge 4096 Jan 01 00:00 az
 drwxr-xr-x 2 tedge tedge 4096 Jan 01 00:00 c8y
@@ -179,14 +179,15 @@ drwxr-xr-x 2 tedge tedge 4096 Jan 01 00:00 c8y
 <p>From the above you can see that there are two cloud providers supported by <code>thin-edge.io</code>.
 The directories should be readable by <code>thin-edge.io</code> user - <code>tedge</code> - and should have permissions <code>755</code>.</p>
 <p>To list all currently supported operations for a cloud provider, run:</p>
-<pre><code class="language-shell">$ ls -l /etc/tedge/operations/c8y
+<pre><code class="language-shell">ls -l /etc/tedge/operations/c8y
 
 -rw-r--r-- 1 tedge tedge 0 Jan 01 00:00 c8y_Restart
 </code></pre>
 <p>To list all currently supported operations, run:
 The operations files should have permissions <code>644</code> and the owner <code>tedge</code>.</p>
-<pre><code class="language-shell">$ sudo ls -lR /etc/tedge/operations
-/etc/tedge/operations:
+<pre><code class="language-shell">sudo ls -lR /etc/tedge/operations
+</code></pre>
+<pre><code>/etc/tedge/operations:
 drwxr-xr-x 2 tedge tedge 4096 Jan 01 00:00 az
 drwxr-xr-x 2 tedge tedge 4096 Jan 01 00:00 c8y
 
@@ -197,8 +198,9 @@ drwxr-xr-x 2 tedge tedge 4096 Jan 01 00:00 c8y
 -rw-r--r-- 1 tedge tedge 0 Jan 01 00:00 c8y_Restart
 </code></pre>
 <p>One can list all the currently supported operations for a child device as below</p>
-<pre><code class="language-shell">$ sudo ls -lR /etc/tedge/operations/c8y/&lt;child-device&gt;
--rw-r--r-- 1 tedge tedge 0 Oct 26 11:24 c8y_LogfileRequest
+<pre><code class="language-shell">sudo ls -lR /etc/tedge/operations/c8y/&lt;child-device&gt;
+</code></pre>
+<pre><code>-rw-r--r-- 1 tedge tedge 0 Oct 26 11:24 c8y_LogfileRequest
 </code></pre>
 <h3 id="adding-new-operations"><a class="header" href="#adding-new-operations">Adding new operations</a></h3>
 <p>To add new operation we need to create new file in <code>/etc/tedge/operations</code> directory.

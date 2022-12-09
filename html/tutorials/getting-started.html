@@ -150,7 +150,7 @@
 </li>
 <li>
 <p>Updated device:
-<code>$ sudo apt-get update &amp;&amp; sudo apt-get upgrade</code></p>
+<code>sudo apt-get update &amp;&amp; sudo apt-get upgrade</code></p>
 </li>
 </ul>
 <h2 id="steps"><a class="header" href="#steps">Steps</a></h2>
@@ -186,9 +186,9 @@
 </code></pre>
 <p>and <code>-h</code> can be used to see the help for the latest subcommand.</p>
 <p>When running this command something similar like the following will be displayed:</p>
-<pre><code class="language-shell">$ sudo tedge -h
-
-tedge 0.8.1
+<pre><code class="language-shell">sudo tedge -h
+</code></pre>
+<pre><code>tedge 0.8.1
 tedge is the cli tool for thin-edge.io
 
 USAGE:
@@ -294,8 +294,9 @@ sudo systemctl restart collectd
 <pre><code>tedge mqtt sub collectd/#
 </code></pre>
 <p>The output will be similar like:</p>
-<pre><code class="language-shell">$ tedge mqtt sub collectd/#
-INFO: Connected
+<pre><code class="language-shell">tedge mqtt sub 'collectd/#'
+</code></pre>
+<pre><code>INFO: Connected
 [collectd/raspberrypi/df-root/percent_bytes-used] 1667205183.407:11.7998857498169
 [collectd/raspberrypi/memory/percent-used] 1667205183.408:4.87045198079293
 [collectd/raspberrypi/cpu/percent-active] 1667205184.398:1.52284263959391
@@ -311,8 +312,9 @@ sudo systemctl enable tedge-mapper-collectd
 
 </code></pre>
 <p>The output will be similar like:</p>
-<pre><code class="language-shell">$ tedge mqtt sub c8y/#
-INFO: Connected
+<pre><code class="language-shell">tedge mqtt sub 'c8y/#'
+</code></pre>
+<pre><code class="language-shell">INFO: Connected
 [c8y/measurement/measurements/create] {&quot;type&quot;:&quot;ThinEdgeMeasurement&quot;,&quot;time&quot;:&quot;2022-10-31T08:35:44.398000001Z&quot;,&quot;cpu&quot;:{&quot;percent-active&quot;:{&quot;value&quot;:1.26262626262626}},&quot;memory&quot;:{&quot;percent-used&quot;:{&quot;value&quot;:4.87024847292786}}}
 [c8y/measurement/measurements/create] {&quot;type&quot;:&quot;ThinEdgeMeasurement&quot;,&quot;time&quot;:&quot;2022-10-31T08:35:45.398000001Z&quot;,&quot;memory&quot;:{&quot;percent-used&quot;:{&quot;value&quot;:4.87024847292786}},&quot;cpu&quot;:{&quot;percent-active&quot;:{&quot;value&quot;:1.01522842639594}}}
 [c8y/measurement/measurements/create] {&quot;type&quot;:&quot;ThinEdgeMeasurement&quot;,&quot;time&quot;:&quot;2022-10-31T08:35:46.398000001Z&quot;,&quot;memory&quot;:{&quot;percent-used&quot;:{&quot;value&quot;:4.87024847292786}},&quot;cpu&quot;:{&quot;percent-active&quot;:{&quot;value&quot;:0.759493670886076}}}

@@ -284,7 +284,7 @@ e.g. restart the analytics engines if the modules have changed.</li>
 <h2 id="install"><a class="header" href="#install">Install</a></h2>
 <p>The <code>install</code> command installs a software module, possibly of some expected version.
 A plugin must be executable in the below format.</p>
-<pre><code class="language-shell">$ myplugin install NAME [--module-version VERSION] [--file FILE]
+<pre><code class="language-shell">myplugin install NAME [--module-version VERSION] [--file FILE]
 </code></pre>
 <p>This command takes 1 mandatory argument and has 2 optional flags.</p>
 <ul>
@@ -369,7 +369,7 @@ the Software Management Agent calls</p>
 <p>The <code>remove</code> command uninstalls a software module,
 and possibly its dependencies if no other modules are dependent on those.
 A plugin must be executable in the below format.</p>
-<pre><code class="language-shell">$ myplugin remove NAME [--module-version VERSION]
+<pre><code class="language-shell">myplugin remove NAME [--module-version VERSION]
 </code></pre>
 <p>This command takes 1 mandatory argument and 1 optional argument with a flag.</p>
 <ul>
@@ -408,7 +408,7 @@ esac
 <p>Let's expand the first <em>docker</em> plugin example to use <code>update-list</code>.
 First, learn what is the input of <code>update-list</code>.</p>
 <p>The Software Management Agent calls a plugin as below. Note that each argument is tab separated:</p>
-<pre><code class="language-shell">$ sudo /etc/tedge/sm-plugins/docker update-list &lt;&lt;EOF
+<pre><code class="language-shell">sudo /etc/tedge/sm-plugins/docker update-list &lt;&lt;EOF
   install	name1	version1
   install	name2		path2
   remove	name3	version3
@@ -419,10 +419,10 @@ EOF
 but the software action list is sent through <strong>stdin</strong>.</p>
 <p>The behaviour of operations <code>install</code> and <code>remove</code> is the same as for original commands <code>install</code> and <code>remove</code>. 
 The above input is equivalent to the use of original commands (<code>install</code> and <code>remove</code>):</p>
-<pre><code class="language-shell">$ /etc/tedge/sm-plugins/docker install name1 --module-version version1
-$ /etc/tedge/sm-plugins/docker install name2 --file path2
-$ /etc/tedge/sm-plugins/docker remove &quot;name 3&quot; --module-version version3
-$ /etc/tedge/sm-plugins/docker remove name4
+<pre><code class="language-shell">/etc/tedge/sm-plugins/docker install name1 --module-version version1
+/etc/tedge/sm-plugins/docker install name2 --file path2
+/etc/tedge/sm-plugins/docker remove &quot;name 3&quot; --module-version version3
+/etc/tedge/sm-plugins/docker remove name4
 </code></pre>
 <p>To make the <em>docker</em> plugin accept a list of install and remove actions,
 let's change the file as below.

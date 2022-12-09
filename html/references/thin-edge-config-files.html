@@ -143,10 +143,11 @@ directories/files inside the base directory that are required for their operatio
 a custom base directory one has to use <code>--config-dir &lt;Path to base directory&gt;</code> option.</p>
 <h2 id="creating-thin-edge-config-files"><a class="header" href="#creating-thin-edge-config-files">Creating <code>thin-edge</code> config files</a></h2>
 <p>The config files are created using <code>tedge --init</code> as below.</p>
-<pre><code class="language-shell">$ sudo tedge --init
+<pre><code class="language-shell">sudo tedge --init
 </code></pre>
 <p>All the directories will be created in the <code>/etc/tedge</code> directory. The directories layout looks as below.</p>
-<pre><code class="language-shell">$ ls -l /etc/tedge
+<pre><code class="language-shell">ls -l /etc/tedge
+
 total 16
 drwxrwxr-x 2 mosquitto mosquitto 4096 Jun 10 14:49 device-certs
 drwxrwxr-x 2 tedge     tedge     4096 Jun 10 14:49 mosquitto-conf
@@ -154,57 +155,57 @@ drwxrwxr-x 2 tedge     tedge     4096 Jun 10 14:49 operations
 drwxrwxr-x 2 tedge     tedge     4096 Jun 10 14:49 plugins
 </code></pre>
 <p>Use the below command to create the config directories in a custom directory.</p>
-<pre><code class="language-shell">$ sudo tedge --config-dir /global/path/to/config/dir --init
+<pre><code class="language-shell">sudo tedge --config-dir /global/path/to/config/dir --init
 </code></pre>
 <p>Now all the config directories will be created inside the <code>/global/path/to/config/dir</code> directory.</p>
 <p>The directories and files that are required by the <code>tedge_mapper</code> are created as below.</p>
-<pre><code class="language-shell">$ sudo tedge_mapper --init c8y
-
-$ ls -l /etc/tedge/operations/c8y
+<pre><code class="language-shell">sudo tedge_mapper --init c8y
+</code></pre>
+<pre><code>ls -l /etc/tedge/operations/c8y
 total 0
 -rw-r--r-- 1 tedge tedge 0 Jun 14 14:37 c8y_Restart
 -rw-r--r-- 1 tedge tedge 0 Jun 14 14:37 c8y_SoftwareUpdate
 </code></pre>
 <p>To create these directories in a custom directory, use <code>--config-dir</code> option as below.</p>
-<pre><code class="language-shell">$ sudo tedge_mapper --config-dir /global/path/to/config/dir --init c8y
+<pre><code class="language-shell">sudo tedge_mapper --config-dir /global/path/to/config/dir --init c8y
 </code></pre>
 <p>The directories and files that are required by the <code>tedge_agent</code> are created as below.</p>
-<pre><code class="language-shell">$ sudo tedge_agent --init
-
-$ ls -l /etc/tedge/.agent
+<pre><code class="language-shell">sudo tedge_agent --init
+</code></pre>
+<pre><code>ls -l /etc/tedge/.agent
 -rw-r--r-- 1 tedge tedge 0 Jun 15 11:51 /etc/tedge/.agent/current-operation
 </code></pre>
 <p>To create these directories and files in a custom directory, use the <code>--config-dir</code> option as below as below.</p>
-<pre><code class="language-shell">$ sudo tedge_agent --config-dir /global/path/to/config/dir --init
+<pre><code class="language-shell">sudo tedge_agent --config-dir /global/path/to/config/dir --init
 </code></pre>
 <h2 id="manage-the-configuration-parameters"><a class="header" href="#manage-the-configuration-parameters">Manage the configuration parameters</a></h2>
 <p>The configuration parameters can be set/unset/list in a config file as below</p>
 <p>For example, the config parameter can be set as below.</p>
-<pre><code class="language-shell">$ sudo tedge config set c8y.url your.cumulocity.io
+<pre><code class="language-shell">sudo tedge config set c8y.url your.cumulocity.io
 </code></pre>
 <p>Now the configuration will be added into <code>/etc/tedge/tedge.toml</code></p>
 <p>Use the below command to set/unset/list configuration parameters in a config file that is present
 in a custom directory.</p>
-<pre><code class="language-shell">$ sudo tedge --config-dir /global/path/to/config/dir config set c8y.url your.cumulocity.io
+<pre><code class="language-shell">sudo tedge --config-dir /global/path/to/config/dir config set c8y.url your.cumulocity.io
 </code></pre>
 <p>Now the config will be set in <code>/global/path/to/config/dir/tedge/tedge.toml</code></p>
 <h2 id="manage-the-certificate"><a class="header" href="#manage-the-certificate">Manage the certificate</a></h2>
 <p>To create/remove/upload the certificate, one can use the below command.</p>
-<pre><code class="language-shell">$ sudo tedge cert create --device-id thinedge
+<pre><code class="language-shell">sudo tedge cert create --device-id thinedge
 
 # Find the certificates that are created as below.
 
-$ ls -l /etc/tedge/device-certs/
+ls -l /etc/tedge/device-certs/
 total 8
 -r--r--r-- 1 mosquitto mosquitto 638 Jun 14 14:38 tedge-certificate.pem
 -r-------- 1 mosquitto mosquitto 246 Jun 14 14:38 tedge-private-key.pem
 </code></pre>
 <p>Use the below command to create/remove/upload the certificate.</p>
-<pre><code class="language-shell">$ sudo tedge --config-dir /global/path/to/config/dir cert create --device-id thinedge
+<pre><code class="language-shell">sudo tedge --config-dir /global/path/to/config/dir cert create --device-id thinedge
 
 # Find the certificates that are created as below.
 
-$ ls -l /global/path/to/config/dir/tedge/device-certs/
+ls -l /global/path/to/config/dir/tedge/device-certs/
 total 8
 -r--r--r-- 1 mosquitto mosquitto 638 Jun 14 14:38 tedge-certificate.pem
 -r-------- 1 mosquitto mosquitto 246 Jun 14 14:38 tedge-private-key.pem
@@ -222,7 +223,7 @@ So, the below line has to be added to your <code>mosquitto.conf</code> file manu
 <p><code>include_dir /global/path/to/config/dir/tedge/mosquitto-conf</code></p>
 <h3 id="step-2-tedge-connect-cloudc8yaz-using-the---config-dir-option"><a class="header" href="#step-2-tedge-connect-cloudc8yaz-using-the---config-dir-option">Step 2: <code>tedge connect &lt;cloud[c8y/az]&gt;</code> using the <code>--config-dir</code> option</a></h3>
 <p>Use the below command to connect to <code>Cumulocity IoT or Azure IoT Hub</code> cloud using <code>--config-dir</code></p>
-<pre><code class="language-shell">$ sudo tedge --config-dir /global/path/to/config/dir connect c8y/az
+<pre><code class="language-shell">sudo tedge --config-dir /global/path/to/config/dir connect c8y/az
 </code></pre>
 <p>Here the <code>path/to/config/dir</code> is the directory where the configuration files are present.</p>
 

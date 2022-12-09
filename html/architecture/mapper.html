@@ -257,12 +257,13 @@ The mapper keeps 1 KB as a buffer for the strings added by Azure.</li>
 <p>When some error occurs in a mapper process, the mapper publishes a corresponded error message
 on the topic <code>tedge/errors</code> with the QoS level 1 (at least once).</p>
 <p>Here is an example if you publish invalid Thin Edge JSON messages on <code>tedge/measurements</code>:</p>
-<pre><code class="language-shell">$ tedge mqtt pub tedge/measurements '{&quot;temperature&quot;: 23,&quot;pressure&quot;: 220'
-$ tedge mqtt pub tedge/measurements '{&quot;temperature&quot;: 23,&quot;time&quot;: 220}'
+<pre><code class="language-shell">tedge mqtt pub tedge/measurements '{&quot;temperature&quot;: 23,&quot;pressure&quot;: 220'
+tedge mqtt pub tedge/measurements '{&quot;temperature&quot;: 23,&quot;time&quot;: 220}'
 </code></pre>
 <p>Then, you'll receive error messages from the mapper on the topic <code>tedge/errors</code>:</p>
-<pre><code class="language-shell">$ tedge mqtt sub tedge/errors
-[tedge/errors] Invalid JSON: Unexpected end of JSON: {&quot;temperature&quot;:23,&quot;pressure&quot;:220
+<pre><code class="language-shell">tedge mqtt sub tedge/errors
+</code></pre>
+<pre><code>[tedge/errors] Invalid JSON: Unexpected end of JSON: {&quot;temperature&quot;:23,&quot;pressure&quot;:220
 [tedge/errors] Not a timestamp: the time value must be an ISO8601 timestamp string in the YYYY-MM-DDThh:mm:ss.sss.±hh:mm format, not a number.
 </code></pre>
 <h2 id="topics-used-by-tedge-mapper"><a class="header" href="#topics-used-by-tedge-mapper">Topics used by tedge-mapper</a></h2>
