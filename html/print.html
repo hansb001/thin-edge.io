@@ -762,7 +762,7 @@ This command configures the MQTT broker:</p>
 <li>to establish a permanent and secure connection to the cloud,</li>
 <li>to forward local messages to the cloud and vice versa.</li>
 </ul>
-<p>Also, if you have installed <code>tedge_mapper</code>, this command starts and enables the tedge-mapper-c8y systemd service.
+<p>Also, if you have installed <code>tedge-mapper</code>, this command starts and enables the tedge-mapper-c8y systemd service.
 At last, it sends packets to Cumulocity to check the connection.
 If your device is not yet registered, you will find the digital-twin created in your tenant after <code>tedge connect c8y</code>!</p>
 <pre><code class="language-shell">sudo tedge connect c8y
@@ -910,7 +910,7 @@ This command configures the MQTT broker:</p>
 <li>to establish a permanent and secure connection to the Azure cloud,</li>
 <li>to forward local messages to the cloud and vice versa.</li>
 </ul>
-<p>Also, if you have installed <code>tedge_mapper</code>, this command starts and enables the tedge-mapper-az systemd service.
+<p>Also, if you have installed <code>tedge-mapper</code>, this command starts and enables the tedge-mapper-az systemd service.
 At last, it sends packets to Azure IoT Hub to check the connection.</p>
 <pre><code class="language-shell">sudo tedge connect az
 </code></pre>
@@ -1379,13 +1379,13 @@ Refer to <a href="tutorials/./write-my-software-management-plugin.html">this</a>
 <li>
 <p>Software management mapper for Cumulocity cloud acts as a proxy between the cloud and the device.
 This translates the cloud specific message type into device specific type and vice-versa.(Example: Cumulocity smart-rest to/from thin-edge json)
-The messages from cloud will be translated and forwarded to the <code>tedge_agent</code> and messages from <code>tedge_agent</code> will be translated and sent to cumulocity cloud.
-You can find this process with the name <code>tedge_mapper c8y</code> in <code>ps</code> once it starts.</p>
+The messages from cloud will be translated and forwarded to the <code>tedge-agent</code> and messages from <code>tedge-agent</code> will be translated and sent to cumulocity cloud.
+You can find this process with the name <code>tedge-mapper c8y</code> in <code>ps</code> once it starts.</p>
 </li>
 <li>
 <p>Software management agent
 The thin-edge software management agent is the one that calls the plugins.
-You can find this process with the name <code>tedge_agent</code> in <code>ps</code> once it starts.</p>
+You can find this process with the name <code>tedge-agent</code> in <code>ps</code> once it starts.</p>
 </li>
 <li>
 <p>Software management plugin
@@ -2280,10 +2280,10 @@ systemctl stop c8y-log-plugin
 <p><code>arch</code> -&gt; architecture type (amd64, armhf, arm64)</p>
 </blockquote>
 <p>Eg:</p>
-<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.5.0/tedge_0.5.0_armhf.deb
+<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.9.0/tedge_0.9.0_armhf.deb
 </code></pre>
 <p>and for <code>mapper</code>:</p>
-<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.5.0/tedge_mapper_0.5.0_armhf.deb
+<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.9.0/tedge-mapper_0.9.0_armhf.deb
 </code></pre>
 <h3 id="thin-edgeio-package-installation"><a class="header" href="#thin-edgeio-package-installation">thin-edge.io package installation</a></h3>
 <p>Now, we have downloaded the package we can proceed to installation. First we will install cli tool <code>tedge</code>.</p>
@@ -2297,10 +2297,10 @@ systemctl stop c8y-log-plugin
 <pre><code class="language-shell">dpkg -i tedge_0.5.0_armhf.deb
 </code></pre>
 <p>To install mapper for thin-edge.io do:</p>
-<pre><code class="language-shell">dpkg -i tedge_mapper_&lt;version&gt;_&lt;arch&gt;.deb
+<pre><code class="language-shell">dpkg -i tedge-mapper_&lt;version&gt;_&lt;arch&gt;.deb
 </code></pre>
 <p>Eg:</p>
-<pre><code class="language-shell">dpkg -i tedge_mapper_0.5.0_armhf.deb
+<pre><code class="language-shell">dpkg -i tedge-mapper_0.9.0_armhf.deb
 </code></pre>
 <h2 id="uninstall-thin-edgeio"><a class="header" href="#uninstall-thin-edgeio">Uninstall <code>thin-edge.io</code></a></h2>
 <p>The <code>thin-edge.io</code> can be uninstalled using a script, that can be downloaded
@@ -2317,7 +2317,7 @@ COMMANDS:
     purge      Uninstall thin-edge.io and also remove configuration files
 </code></pre>
 <blockquote>
-<p>Note: The uninstall script removes/purges the core thin-edge.io packages like <code>tedge, tedge_mapper, and tedge_agent</code> as well as thin-edge.io plugins like <code>tedge_apt_plugin, c8y_log_plugin, c8y_configuration_plugin</code> etc.</p>
+<p>Note: The uninstall script removes/purges the core thin-edge.io packages like <code>tedge, tedge-mapper, and tedge-agent</code> as well as thin-edge.io plugins like <code>tedge-apt-plugin, c8y-log-plugin, c8y-configuration-plugin</code> etc.</p>
 </blockquote>
 <h3 id="remove-thin-edgeio"><a class="header" href="#remove-thin-edgeio"><code>Remove</code> thin-edge.io</a></h3>
 <p>Use uninstall script as shown below just to <code>remove</code> the <code>thin-edge.io</code> packages.</p>
@@ -2819,7 +2819,7 @@ distributions, which use the <strong>apt</strong> package manager(Ex: RaspberryP
 </blockquote>
 <p>Below steps show how to download, install and enable thin-edge software management feature.</p>
 <h2 id="download-and-install-software-management-packages-on-the-device"><a class="header" href="#download-and-install-software-management-packages-on-the-device">Download and install software management packages on the device</a></h2>
-<p>As a prerequisite, install <a href="howto-guides/../howto-guides/002_installation.html">tedge and tedge_mapper</a> if not installed already.</p>
+<p>As a prerequisite, install <a href="howto-guides/../howto-guides/002_installation.html">tedge and tedge-mapper</a> if not installed already.</p>
 <p>The thin-edge software management packages are in repository on GitHub: <a href="https://github.com/thin-edge/thin-edge.io/releases">thin-edge.io</a>.</p>
 <p>To download the package from github repository use the following command (use desired version):</p>
 <pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/&lt;package&gt;_&lt;version&gt;_&lt;arch&gt;.deb
@@ -2829,14 +2829,14 @@ distributions, which use the <strong>apt</strong> package manager(Ex: RaspberryP
 <p><code>version</code> -&gt; thin-edge.io software management components version in x.x.x format</p>
 <p><code>arch</code> -&gt; architecture type (amd64, armhf)</p>
 </blockquote>
-<p>Download <code>tedge_apt_plugin</code> and <code>tedge_agent</code></p>
-<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.5.0/tedge_apt_plugin_0.5.0_armhf.deb
-curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.5.0/tedge_agent_0.5.0_armhf.deb
+<p>Download <code>tedge-apt-plugin</code> and <code>tedge-agent</code></p>
+<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.9.0/tedge-apt-plugin_0.9.0_armhf.deb
+curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.9.0/tedge-agent_0.9.0_armhf.deb
 </code></pre>
 <p>Once the packages are downloaded, proceed to installation.</p>
-<p>To install <code>tedge_apt_plugin</code> and <code>tedge_agent</code> on thin-edge device do:</p>
-<pre><code class="language-shell">sudo dpkg -i tedge_apt_plugin_&lt;version&gt;_&lt;arch&gt;.deb
-sudo dpkg -i tedge_agent&lt;version&gt;_&lt;arch&gt;.deb
+<p>To install <code>tedge-apt-plugin</code> and <code>tedge-agent</code> on thin-edge device do:</p>
+<pre><code class="language-shell">sudo dpkg -i tedge-apt-plugin_&lt;version&gt;_&lt;arch&gt;.deb
+sudo dpkg -i tedge-agent_&lt;version&gt;_&lt;arch&gt;.deb
 </code></pre>
 <blockquote>
 <p>Note: Software management feature will be enabled after installation if the device
@@ -2914,14 +2914,14 @@ The logs here capture INFO, WARNING, and ERROR messages.</p>
 cloud can be accessed as below</p>
 <p><code>journalctl -u tedge-mapper-c8y.service</code></p>
 <blockquote>
-<p>Note: Run <code>tedge_mapper --debug c8y</code> to log more debug messages</p>
+<p>Note: Run <code>tedge-mapper --debug c8y</code> to log more debug messages</p>
 </blockquote>
 <h4 id="tedge-azure-mapper"><a class="header" href="#tedge-azure-mapper">Tedge Azure mapper</a></h4>
 <p>The log messages of the Azure mapper component that sends the measurement data from the thin-edge device to the Azure
 cloud can be accessed as below.</p>
 <p><code>journalctl -u tedge-mapper-az.service</code></p>
 <blockquote>
-<p>Note: Run <code>tedge_mapper --debug az</code> to log more debug messages</p>
+<p>Note: Run <code>tedge-mapper --debug az</code> to log more debug messages</p>
 </blockquote>
 <h3 id="device-monitoring-logs"><a class="header" href="#device-monitoring-logs">Device monitoring logs</a></h3>
 <p>The thin-edge device monitoring component logs can be found as below</p>
@@ -2929,7 +2929,7 @@ cloud can be accessed as below.</p>
 <p>The log messages of the collectd mapper that sends the monitoring data to the cloud can be accessed as below</p>
 <p><code>journalctl -u tedge-mapper-collectd.service</code></p>
 <blockquote>
-<p>Note: Run <code>tedge_mapper --debug collectd</code> to log more debug messages</p>
+<p>Note: Run <code>tedge-mapper --debug collectd</code> to log more debug messages</p>
 </blockquote>
 <h3 id="software-management-logs"><a class="header" href="#software-management-logs">Software Management logs</a></h3>
 <p>This section describes how to access the software management component logs</p>
@@ -2944,7 +2944,7 @@ the log file captures <code>exit status, stdout, and stderr</code> messages.</p>
 <p>tedge-agent : TTY=unknown ; PWD=/tmp ; USER=root ; COMMAND=/etc/tedge/sm-plugins/apt finalize</p>
 <p>tedge-agent : TTY=unknown ; PWD=/tmp ; USER=root ; COMMAND=/etc/tedge/sm-plugins/apt list</p>
 <blockquote>
-<p>Note: Run <code>tedge_agent --debug</code> to log more debug messages</p>
+<p>Note: Run <code>tedge-agent --debug</code> to log more debug messages</p>
 </blockquote>
 <h2 id="thirdparty-component-logs"><a class="header" href="#thirdparty-component-logs">Thirdparty component logs</a></h2>
 <p>Thin-edge uses the third-party components <code>Mosquitto</code> as the mqtt broker and <code>Collectd</code> for monitoring purpose.
@@ -3016,28 +3016,28 @@ c8y_configuration_plugin = &quot;error&quot;
 <p>Currently all binaries provided with releases are packaged into <code>deb</code> packages.
 <code>deb</code> packages can be extracted to get the binaries for installation (example):</p>
 <pre><code class="language-shell">ar -x tedge_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
-ar -x tedge_agent_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
-ar -x tedge_mapper_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
+ar -x tedge-agent_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
+ar -x tedge-mapper_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
 </code></pre>
 <p>Which should give you <code>usr</code> and/or <code>lib</code> directory where you can find binaries.
 After extracting all packages, you should now adjust permissions on those files:</p>
 <pre><code class="language-shell">chown root:root /usr/bin/tedge
-chown root:root /usr/bin/tedge_agent
-chown root:root /usr/bin/tedge_mapper
+chown root:root /usr/bin/tedge-agent
+chown root:root /usr/bin/tedge-mapper
 </code></pre>
 <p>and then move your binaries to the appropriate directory, eg:</p>
 <pre><code class="language-shell">mv ./lib/ ./bin/ /
 </code></pre>
 <h4 id="if-building-from-source"><a class="header" href="#if-building-from-source">If building from source</a></h4>
 <p>If you have built the binaries from source you should install them on the target in: <code>/usr/bin/</code>.</p>
-<p><code>systemd</code> unit files for <code>tedge_mapper</code> and <code>tedge_agent</code> can be found in the repository at <code>configuration/init/systemd/tedge-*</code> and should be installed on the target in: <code>lib/systemd/system/tedge-*</code>.</p>
+<p><code>systemd</code> unit files for <code>tedge-mapper</code> and <code>tedge-agent</code> can be found in the repository at <code>configuration/init/systemd/tedge-*</code> and should be installed on the target in: <code>lib/systemd/system/tedge-*</code>.</p>
 <h3 id="configuring-the-system-and-systemd-units"><a class="header" href="#configuring-the-system-and-systemd-units">Configuring the system and systemd-units</a></h3>
 <p><code>thin-edge.io</code> relies on certain system configuration and systemd process management, when installing from deb package all of that is setup automatically but with manual installation a set of steps has to be performed.</p>
 <p>On most Linux distribution it should suffice to execute them as <code>root</code> to do the setup, but in some cases (eg, your system uses <code>useradd</code> instead of <code>adduser</code> package) more detailed instructions are documented:</p>
 <ul>
 <li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge/postinst">tedge</a></li>
-<li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge_agent/postinst">tedge-agent</a></li>
-<li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge_mapper/postinst">tedge-mapper</a></li>
+<li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge-agent/postinst">tedge-agent</a></li>
+<li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge-mapper/postinst">tedge-mapper</a></li>
 </ul>
 <p>After following steps for all the components installed <code>thin-edge.io</code> should be operational.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-restart-your-thin-edgeio-device"><a class="header" href="#how-to-restart-your-thin-edgeio-device">How to restart your thin-edge.io device</a></h1>
@@ -3088,7 +3088,7 @@ Further details about this can be found in the thin-edge.io documentation at <a 
 <li><strong>Description</strong>: apama-thin-edge-support (or something else if you choose)</li>
 <li><strong>Device Filter Type</strong>: (leave empty)</li>
 <li><strong>Software Type</strong>: apt</li>
-<li><strong>Version</strong>: 10.15.0.2-1::apt</li>
+<li><strong>Version</strong>: latest::apt</li>
 <li><strong>SOFTWARE FILE</strong>: select the <strong>Provide a file path</strong> option and give an <strong>empty space</strong> (' ').</li>
 </ul>
 </li>
@@ -3097,7 +3097,7 @@ Further details about this can be found in the thin-edge.io documentation at <a 
 <li>In the list of devices, select the thin-edge device installed previously.</li>
 <li>In the sub-menu for the device, select the <strong>Software</strong> option.</li>
 <li>Click the <strong>Install software</strong> button in the bottom left; the apama-thin-edge-support should be listed.</li>
-<li>Click the drop-down arrow on the right and check the 10.15.1.0-1::apama radio button, then click <strong>Install</strong>.</li>
+<li>Click the drop-down arrow on the right and check the <code>latest::apt</code> radio button, then click <strong>Install</strong>.</li>
 <li>Finally, click the <strong>Apply changes</strong> button in the lower right of the panel.</li>
 </ol>
 <p>After installation of the support for Apama onto the thin-edge device, the correlator will attempt to start, but will fail initially because there is not yet an Apama project installed. Instructions are given below for installing an Apama project on the device.</p>
@@ -3241,7 +3241,7 @@ After=syslog.target network.target mosquitto.service tedge-watchdog.service
 
 [Service]
 User=tedge-mapper
-ExecStart=/usr/bin/tedge_mapper c8y
+ExecStart=/usr/bin/tedge-mapper c8y
 Restart=always
 RestartPreventExitStatus=255
 WatchdogSec=30
@@ -3317,13 +3317,13 @@ If you're using systemctl you can do: </p>
 <a href="https://cumulocity.com/guides/10.6.6/reference/device-management/">Cumulocity API docs</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-retrieve-logs-with-the-log-plugin"><a class="header" href="#how-to-retrieve-logs-with-the-log-plugin">How to retrieve logs with the log plugin</a></h1>
 <p>You can now access any type of logs directly from your Cumulocity UI, using the
-<code>c8y_log_plugin</code> daemon. To get started install the <code>c8y_log_plugin</code> via the
+<code>c8y-log-plugin</code> daemon. To get started install the <code>c8y-log-plugin</code> via the
 debian package.</p>
 <p>If you have not installed via the debian package, make sure you have the following:</p>
 <ul>
-<li>run <code>sudo c8y_log_plugin --init</code></li>
+<li>run <code>sudo c8y-log-plugin --init</code></li>
 <li>a <code>c8y-log-plugin.service</code> file in <code>/lib/systemd/system/c8y-log-plugin.service</code></li>
-<li>a <code>c8y_log_plugin</code> binary in <code>/usr/bin/c8y_log_plugin</code></li>
+<li>a <code>c8y-log-plugin</code> binary in <code>/usr/bin/c8y-log-plugin</code></li>
 <li>check if <code>/etc/tedge/c8y/c8y-log-plugin.toml</code> was created</li>
 </ul>
 <p>After the device is connected to Cumulocity, this plugin needs to be started and
@@ -3405,41 +3405,41 @@ For example, if <code>template-1</code> is already configured on the device, as 
 <p>With <code>thin-edge.io</code>, you can manage config files on a device by using the <a href="https://cumulocity.com/guides/users-guide/device-management/#managing-configurations">Cumulocity configuration management feature</a> as a part of Device Management.</p>
 <p>If you are new to the Cumulocity <strong>Configuration Management</strong> feature,
 we recommend you to read <a href="https://cumulocity.com/guides/users-guide/device-management/#managing-configurations">the Cumulocity user guide</a> along with this how-to guide.</p>
-<h2 id="installation-of-c8y_configuration_plugin"><a class="header" href="#installation-of-c8y_configuration_plugin">Installation of <code>c8y_configuration_plugin</code></a></h2>
-<p>To enable the feature, first you need to install the <code>c8y_configuration_plugin</code> binary on your device.</p>
+<h2 id="installation-of-c8y-configuration-plugin"><a class="header" href="#installation-of-c8y-configuration-plugin">Installation of <code>c8y-configuration-plugin</code></a></h2>
+<p>To enable the feature, first you need to install the <code>c8y-configuration-plugin</code> binary on your device.</p>
 <h3 id="using-the-get-thin-edge_iosh-script-on-debian-based-distributions-recommended"><a class="header" href="#using-the-get-thin-edge_iosh-script-on-debian-based-distributions-recommended">Using the <code>get-thin-edge_io.sh</code> script on Debian based distributions (Recommended)</a></h3>
 <p>If your device supports <code>apt</code> as a package manager,
-you can install all <code>thin-edge.io</code> packages including the <code>c8y_configuration_plugin</code> by the <code>get-thin-edge_io.sh</code> script.
+you can install all <code>thin-edge.io</code> packages including the <code>c8y-configuration-plugin</code> by the <code>get-thin-edge_io.sh</code> script.
 If you have already used the <code>get-thin-edge_io.sh</code> script,
 this package is installed, by default.</p>
 <pre><code class="language-shell">curl -fsSL https://raw.githubusercontent.com/thin-edge/thin-edge.io/main/get-thin-edge_io.sh | sudo sh -s
 </code></pre>
-<h3 id="using-the-c8y_configuration_plugin-debian-package-on-debian-based-distributions"><a class="header" href="#using-the-c8y_configuration_plugin-debian-package-on-debian-based-distributions">Using the <code>c8y_configuration_plugin</code> Debian package on Debian based distributions</a></h3>
-<p>For Debian based distributions, we provide the <code>c8y_configuration_plugin_&lt;version&gt;_&lt;arch&gt;.deb</code> package as a release asset <a href="https://github.com/thin-edge/thin-edge.io/releases">here</a>.</p>
-<p>In case that you didn't use the <code>get-thin-edge_io.sh</code> script, you can download the <code>c8y_configuration_plugin_&lt;version&gt;_&lt;arch&gt;.deb</code>  package on our <a href="https://github.com/thin-edge/thin-edge.io/releases">Releases</a> and install it.</p>
-<pre><code class="language-shell">sudo apt install ./path/to/package/c8y_configuration_plugin_&lt;version&gt;_&lt;arch&gt;.deb
+<h3 id="using-the-c8y-configuration-plugin-debian-package-on-debian-based-distributions"><a class="header" href="#using-the-c8y-configuration-plugin-debian-package-on-debian-based-distributions">Using the <code>c8y-configuration-plugin</code> Debian package on Debian based distributions</a></h3>
+<p>For Debian based distributions, we provide the <code>c8y-configuration-plugin_&lt;version&gt;_&lt;arch&gt;.deb</code> package as a release asset <a href="https://github.com/thin-edge/thin-edge.io/releases">here</a>.</p>
+<p>In case that you didn't use the <code>get-thin-edge_io.sh</code> script, you can download the <code>c8y-configuration-plugin_&lt;version&gt;_&lt;arch&gt;.deb</code>  package on our <a href="https://github.com/thin-edge/thin-edge.io/releases">Releases</a> and install it.</p>
+<pre><code class="language-shell">sudo apt install ./path/to/package/c8y-configuration-plugin_&lt;version&gt;_&lt;arch&gt;.deb
 </code></pre>
 <h3 id="extracting-from-debian-package-on-non-debian-based-distributions"><a class="header" href="#extracting-from-debian-package-on-non-debian-based-distributions">Extracting from debian package on non-Debian based distributions</a></h3>
-<p>Get the <code>c8y_configuration_plugin_&lt;version&gt;_&lt;arch&gt;.deb</code> from our <a href="https://github.com/thin-edge/thin-edge.io/releases">Releases</a>.
+<p>Get the <code>c8y-configuration-plugin_&lt;version&gt;_&lt;arch&gt;.deb</code> from our <a href="https://github.com/thin-edge/thin-edge.io/releases">Releases</a>.
 Then, run this command in the directory where the package is stored.</p>
-<pre><code class="language-shell">ar -x ./c8y_configuration_plugin_&lt;version&gt;_&lt;arch&gt;.deb | tar -xf ./data.tar.xz
+<pre><code class="language-shell">ar -x ./c8y-configuration-plugin_&lt;version&gt;_&lt;arch&gt;.deb | tar -xf ./data.tar.xz
 </code></pre>
 <p>The binary is extracted in <code>&lt;current directory&gt;/usr/bin</code>.
 For more details, refer to our guide <a href="howto-guides/./015_installation_without_deb_support.html#extracting-binaries-from-deb-packages">Extracting from debian package</a>.</p>
 <h3 id="building-from-sources"><a class="header" href="#building-from-sources">Building from sources</a></h3>
 <p>Follow our guide <a href="howto-guides/./../BUILDING.html">Building thin-edge.io</a> and <a href="howto-guides/./015_installation_without_deb_support.html#if-building-from-source">Building from source</a>.</p>
-<pre><code class="language-shell">cargo build --release -p c8y_configuration_plugin
+<pre><code class="language-shell">cargo build --release -p c8y-configuration-plugin
 </code></pre>
-<p>A <code>systemd</code> unit file for <code>c8y_configuration_plugin</code> can be found in the repository at <code>configuration/init/systemd/c8y-configuration-plugin.service</code>
+<p>A <code>systemd</code> unit file for <code>c8y-configuration-plugin</code> can be found in the repository at <code>configuration/init/systemd/c8y-configuration-plugin.service</code>
 and should be installed on the target in: <code>/lib/systemd/system/c8y-configuration-plugin.service</code>.</p>
 <pre><code class="language-shell">sudo cp &lt;repository_root&gt;/configuration/init/systemd/c8y-configuration-plugin.service /lib/systemd/system/c8y-configuration-plugin.service
 </code></pre>
 <h2 id="get-started"><a class="header" href="#get-started">Get started</a></h2>
 <p>Before starting anything, make sure <a href="howto-guides/./../tutorials/connect-c8y.html">your device is connected to Cumulocity</a>.</p>
 <p><strong>Step 0</strong>
-Unless you installed <code>c8y_configuration_plugin</code> using the debian package,
+Unless you installed <code>c8y-configuration-plugin</code> using the debian package,
 you need one additional step to initialize the plugin. Run this command.</p>
-<pre><code class="language-shell">sudo c8y_configuration_plugin --init
+<pre><code class="language-shell">sudo c8y-configuration-plugin --init
 </code></pre>
 <p><strong>Step 1</strong>
 Open the file <code>/etc/tedge/c8y/c8y-configuration-plugin.toml</code> and add entries for the configuration files that you'd like to manage from Cumulocity cloud in the following format:</p>
@@ -3466,13 +3466,13 @@ Start the configuration plugin process and enable it on boot by <code>systemctl<
 sudo systemctl enable c8y-configuration-plugin.service
 </code></pre>
 <p>Alternatively, you can run the process directly.</p>
-<pre><code>sudo c8y_configuration_plugin
+<pre><code>sudo c8y-configuration-plugin
 </code></pre>
 <p><strong>Step 3</strong>
 Navigate to your Cumulocity Device Management and the desired device. Open its <strong>Configuration</strong> tab.
 You can find <code>c8y-configuration-plugin</code> and more are listed as supported configuration types, as declared in the plugin configuration file in step 1.</p>
 <p><img src="howto-guides/./images/c8y-config-plugin-upload.png" alt="Cumulocity Configuration Management Upload" /></p>
-<p>This is the configuration file of <code>c8y_configuration_plugin</code>, where you can add file entries that you want to manage with Cumulocity.</p>
+<p>This is the configuration file of <code>c8y-configuration-plugin</code>, where you can add file entries that you want to manage with Cumulocity.</p>
 <h2 id="update-c8y-configuration-plugin-from-cumulocity"><a class="header" href="#update-c8y-configuration-plugin-from-cumulocity">Update <code>c8y-configuration-plugin</code> from Cumulocity</a></h2>
 <p>To update any configuration file, create a local copy of that config file and then upload that file to the <a href="https://cumulocity.com/guides/users-guide/device-management/#to-add-a-configuration-snapshot">Cumulocity configuration repository</a> with the appropriate configuration type.</p>
 <p>The <code>c8y-configuration-plugin.toml</code> file can also be updated from the cloud in a similar manner to add/remove further configuration file entries. The updated TOML file has to be uploaded with the configuration type:  <strong>c8y-configuration-plugin</strong>.</p>
@@ -3486,7 +3486,7 @@ Then you can find new supported configuration types as you defined.</p>
 <p>Note: All configuration updates are notified over <code>tedge/configuration_change/&lt;config-type&gt;</code> MQTT topic, giving the opportunity to software components installed on the device or a child device to react to these updates.
 For more details, refer to the <a href="howto-guides/./../references/c8y-configuration-management.html#notifications">Notifications section of the specification</a>.</p>
 </blockquote>
-<p>To get to know more about the <code>c8y_configuration_plugin</code>, refer to <a href="howto-guides/./../references/c8y-configuration-management.html">Specifications of Device Configuration Management using Cumulocity</a>.</p>
+<p>To get to know more about the <code>c8y-configuration-plugin</code>, refer to <a href="howto-guides/./../references/c8y-configuration-management.html">Specifications of Device Configuration Management using Cumulocity</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-install-thin-edgeio-manually-with-openrc"><a class="header" href="#how-to-install-thin-edgeio-manually-with-openrc">How to install thin-edge.io manually with OpenRC</a></h1>
 <p>This tutorial will demo how to install thin-edge.io manually for a non-debian linux distribution that uses OpenRC as its init system.
 The aim of this tutorial is to show how to get started with Cumulocity IoT even if your current system is not supported by the default installation of thin-edge.io.
@@ -3518,10 +3518,10 @@ A minimal thin-edge.io installation requires three components:</p>
 <li>tedge mapper</li>
 </ul>
 <pre><code class="language-shell">sudo mv target/release/tedge /usr/bin
-sudo mv target/release/tedge_agent /usr/bin
-sudo mv target/release/tedge_mapper /usr/bin
+sudo mv target/release/tedge-agent /usr/bin
+sudo mv target/release/tedge-mapper /usr/bin
 </code></pre>
-<p>You should now have access to the <code>tedge</code>, <code>tedge_agent</code> and <code>tedge_mapper</code> binaries.</p>
+<p>You should now have access to the <code>tedge</code>, <code>tedge-agent</code> and <code>tedge-mapper</code> binaries.</p>
 <p align="center">
   <img src="howto-guides/./images/manual_installation-tedge_binary_dry_run.png" alt="Sublime's custom image"/>
 </p>
@@ -3560,8 +3560,8 @@ sudo useradd --system --no-create-home -c &quot;&quot; -s /sbin/nologin -g tedge
 <pre><code class="language-shell">sudo rc-service mosquitto stop
 sudo tedge --init
 sudo rc-service mosquitto start
-sudo tedge_agent --init
-sudo tedge_mapper --init c8y
+sudo tedge-agent --init
+sudo tedge-mapper --init c8y
 </code></pre>
 <p>This should show the following output:</p>
 <p align="center">
@@ -3594,13 +3594,13 @@ sudo tedge_mapper --init c8y
 
 start() {
    ebegin &quot;Starting tedge-agent&quot;
-   start-stop-daemon --user tedge --start --background --exec tedge_agent
+   start-stop-daemon --user tedge --start --background --exec tedge-agent
    eend $?
 }
 
 stop() {
     ebegin &quot;Stopping tedge-agent&quot;
-    start-stop-daemon --stop --exec tedge_agent
+    start-stop-daemon --stop --exec tedge-agent
     eend $?
 }
 </code></pre>
@@ -3612,13 +3612,13 @@ stop() {
 
 start() {
    ebegin &quot;Starting tedge-mapper-c8y&quot;
-   start-stop-daemon --user tedge --start --background --exec tedge_mapper c8y
+   start-stop-daemon --user tedge --start --background --exec tedge-mapper c8y
    eend $?
 }
 
 stop() {
    ebegin &quot;Stopping tedge-mapper-c8y&quot;
-   start-stop-daemon --stop --exec tedge_mapper
+   start-stop-daemon --stop --exec tedge-mapper
    eend $?
 }
 </code></pre>
@@ -4702,14 +4702,14 @@ before moving them to the actual targets.</li>
 </li>
 </ul>
 <h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
-<p>Assuming the configuration plugin <code>c8y_configuration_plugin</code>
-has been installed in <code>/usr/bin/c8y_configuration_plugin</code>,
+<p>Assuming the configuration plugin <code>c8y-configuration-plugin</code>
+has been installed in <code>/usr/bin/c8y-configuration-plugin</code>,
 two files must be added under <code>/etc/tedge/operations/c8y/</code>
 to declare that this plugin supports two Cumulocity operations:
 uploading and downloading configuration files
 (which respective SmartRest2 codes are <code>526</code> and <code>524</code>).</p>
-<p>These two files can be created using the <code>c8y_configuration_plugin --init</code> option:</p>
-<pre><code class="language-shell">sudo c8y_configuration_plugin --init
+<p>These two files can be created using the <code>c8y-configuration-plugin --init</code> option:</p>
+<pre><code class="language-shell">sudo c8y-configuration-plugin --init
 </code></pre>
 <pre><code class="language-shell">ls -l /etc/tedge/operations/c8y/c8y_UploadConfigFile
 </code></pre>
@@ -4735,8 +4735,8 @@ These files are just empty files owned by the <code>tedge</code> user.</p>
 <pre><code>-rw-r--r-- 1 tedge tedge 97 Mar 22 14:24 /etc/tedge/operations/c8y/child-2/c8y_DownloadConfigFile
 -rw-r--r-- 1 tedge tedge 95 Mar 22 14:24 /etc/tedge/operations/c8y/child-2/c8y_UploadConfigFile
 </code></pre>
-<p>The <code>c8y_configuration_plugin</code> has to be run as a daemon on the device, the latter being connected to Cumulocity.</p>
-<p>On start of <code>tedge_mapper c8y</code> and on <code>/etc/tedge/operations/c8y</code> directory updates,
+<p>The <code>c8y-configuration-plugin</code> has to be run as a daemon on the device, the latter being connected to Cumulocity.</p>
+<p>On start of <code>tedge-mapper c8y</code> and on <code>/etc/tedge/operations/c8y</code> directory updates,
 one can observe on the MQTT bus of the thin-edge device
 the messages sent to Cumulocity to declare the capabilities of the main and child devices.
 Here, the capabilities to upload and download configuration files
@@ -4748,7 +4748,7 @@ Here, the capabilities to upload and download configuration files
 [c8y/s/us/child-2] 114,c8y_UploadConfigFile,c8y_DownloadConfigFile
 </code></pre>
 <h2 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h2>
-<p>The <code>c8y_configuration_plugin</code> configuration is stored by default under <code>/etc/tedge/c8y/c8y-configuration-plugin.toml</code></p>
+<p>The <code>c8y-configuration-plugin</code> configuration is stored by default under <code>/etc/tedge/c8y/c8y-configuration-plugin.toml</code></p>
 <p>This <a href="https://toml.io/en/">TOML</a> file defines the list of files to be managed from the cloud tenant.
 Each configuration file is defined by a record with:</p>
 <ul>
@@ -4771,7 +4771,7 @@ ignoring these parameters.</li>
   { path = '/etc/mosquitto/mosquitto.conf', type = 'mosquitto', user = 'mosquitto', group = 'mosquitto', mode = 0o644 }
 ]
 </code></pre>
-<p>Along this <code>c8y_configuration_plugin</code> configuration for the main device,
+<p>Along this <code>c8y-configuration-plugin</code> configuration for the main device,
 the configuration plugin expects a configuration file per child device
 that needs to be configured from the cloud.</p>
 <ul>
@@ -4836,7 +4836,7 @@ as if the file were empty.
 Similarly, for any file <code>/etc/tedge/c8y/$CHILD_DEVICE_ID/c8y-configuration-plugin.toml</code>.
 So, the issue can be fixed from the cloud.</li>
 </ul>
-<p>The behavior of the <code>c8y_configuration_plugin</code> is also controlled
+<p>The behavior of the <code>c8y-configuration-plugin</code> is also controlled
 by the configuration of thin-edge:</p>
 <ul>
 <li><code>tedge config get mqtt.bind_address</code>: the address of the local MQTT bus.</li>
@@ -4845,13 +4845,14 @@ by the configuration of thin-edge:</p>
 before being copied atomically to their targets.</li>
 </ul>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
-<pre><code class="language-shell">c8y_configuration_plugin --help
+<pre><code class="language-shell">c8y-configuration-plugin --help
 </code></pre>
-<pre><code>c8y_configuration_plugin 0.6.2
+<pre><code>c8y-configuration-plugin 0.9.0
+
 Thin-edge device configuration management for Cumulocity
 
 USAGE:
-    c8y_configuration_plugin [OPTIONS]
+    c8y-configuration-plugin [OPTIONS]
 
 OPTIONS:
         --config-dir &lt;CONFIG_DIR&gt;      [default: /etc/tedge]
@@ -4859,9 +4860,9 @@ OPTIONS:
     -h, --help                         Print help information
     -V, --version                      Print version information
 
-    On start, `c8y_configuration_plugin` notifies the cloud tenant of the managed configuration files,
+    On start, `c8y-configuration-plugin` notifies the cloud tenant of the managed configuration files,
     listed in `CONFIG_DIR/c8y/c8y-configuration-plugin.toml`, sending this list with a `119` on `c8y/s/us`.
-    `c8y_configuration_plugin` subscribes then to `c8y/s/ds` listening for configuration operation
+    `c8y-configuration-plugin` subscribes then to `c8y/s/ds` listening for configuration operation
     requests (messages `524` and `526`).
     notifying the Cumulocity tenant of their progress (messages `501`, `502` and `503`).
     
@@ -4871,7 +4872,7 @@ OPTIONS:
     * to connect the MQTT bus: `tedge config get mqtt.port`.
 </code></pre>
 <h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
-<p>The <code>c8y_configuration_plugin</code> reports progress and errors on its <code>stderr</code>.</p>
+<p>The <code>c8y-configuration-plugin</code> reports progress and errors on its <code>stderr</code>.</p>
 <ul>
 <li>All upload and download operation requests are logged, when received and when completed,
 with one line per file.</li>
@@ -4880,7 +4881,7 @@ with one line per file.</li>
 </ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>When a configuration file is successfully downloaded from the cloud,
-the <code>c8y_configuration_plugin</code> service notifies this update over MQTT.</p>
+the <code>c8y-configuration-plugin</code> service notifies this update over MQTT.</p>
 <ul>
 <li>The notification messages are published on the topic <code>tedge/configuration_change/{type}</code>,
 where <code>{type}</code> is the type of the configuration file that have been updated,
@@ -4897,7 +4898,7 @@ If such a character is used in a type name (or in the path of a configuration fi
 then the whole plugin configuration <code>/etc/tedge/c8y/c8y-configuration-plugin.toml</code> is considered ill-formed.</li>
 </ul>
 <h2 id="configuration-protocol-between-thin-edge-and-the-child-devices"><a class="header" href="#configuration-protocol-between-thin-edge-and-the-child-devices">Configuration protocol between thin-edge and the child-devices</a></h2>
-<p>The configuration plugin <code>c8y_configuration_plugin</code> can act as a proxy between the cloud and a child-device.
+<p>The configuration plugin <code>c8y-configuration-plugin</code> can act as a proxy between the cloud and a child-device.
 However, for that to work, a client, referred to as child-device-agent, must be installed on the child device
 to perform the actual configuration updates pushed by thin-edge on behalf of the cloud.
 While the configuration plugin tells what need to be updated and when,
@@ -4979,7 +4980,7 @@ are only open on a local trusted network.</li>
 </ul>
 <h3 id="the-child-device-downloads-configuration-updates-on-notification"><a class="header" href="#the-child-device-downloads-configuration-updates-on-notification">The child device downloads configuration updates on notification</a></h3>
 <p>When a configuration file for a child device
-is received from the cloud by the <code>c8y_configuration_plugin</code> daemon,
+is received from the cloud by the <code>c8y-configuration-plugin</code> daemon,
 the configuration plugin manages the transfer of this file to the child device
 and notifies the cloud on the progress of this configuration update operation.</p>
 <p>The following diagram captures the required interactions between all relevant parties:</p>
@@ -5007,7 +5008,7 @@ and notifies the cloud on the progress of this configuration update operation.</
 <ol>
 <li>On reception of a configuration update for a child device named <code>$CHILD_DEVICE_ID</code>
 of a file <code>{ path = $PATH, type = $TYPE }</code> defined in <code>$CHILD_DEVICE_ID/c8y-configuration-plugin.toml</code> 
-the <code>c8y_configuration_plugin</code> downloads the new configuration content to the temporary directory defined by <code>tedge config get tmp.path</code>,
+the <code>c8y-configuration-plugin</code> downloads the new configuration content to the temporary directory defined by <code>tedge config get tmp.path</code>,
 and, on success, moves this content under the thin-edge file transfer HTTP root.
 <ul>
 <li>The file is moved to <code>$TEDGE_HTTP_ROOT/$CHILD_DEVICE_ID/config_update/$TYPE</code>
@@ -5016,7 +5017,7 @@ making this file available under <code>http://$TEDGE_HTTP/tedge/file-transfer/$C
 </ul>
 </li>
 <li>Once the updated configuration is available over the local HTTP file transfer service,
-the <code>c8y_configuration_plugin</code> notifies the child device by publishing an MQTT message.
+the <code>c8y-configuration-plugin</code> notifies the child device by publishing an MQTT message.
 <ul>
 <li>The topic is <code>tedge/$CHILD_DEVICE_ID/commands/req/config_update</code></li>
 <li>The payload is a JSON record with 3 fields
@@ -5059,7 +5060,7 @@ It should also send an executing message before starting to process the request.
 </ol>
 </li>
 <li>On reception an operation status message,
-the <code>c8y_configuration_plugin</code> notifies the cloud accordingly.
+the <code>c8y-configuration-plugin</code> notifies the cloud accordingly.
 <ol>
 <li>When a success or error message is finally received,
 then the configuration plugin cleans up all the temporary resources,
@@ -5072,7 +5073,7 @@ then this notification message is ignored.</li>
 </ol>
 <h3 id="the-child-device-uploads-current-configuration-snapshot-on-request"><a class="header" href="#the-child-device-uploads-current-configuration-snapshot-on-request">The child device uploads current configuration snapshot on request</a></h3>
 <p>The configuration files actually used by a child device can be requested from the cloud.
-As for configuration updates, the <code>c8y_configuration_plugin</code> daemon drive these requests
+As for configuration updates, the <code>c8y-configuration-plugin</code> daemon drive these requests
 using a combination of MQTT to notify the child device of the request
 and of HTTP to let the child device <code>PUT</code> the requested file.</p>
 <p>The following diagram captures the required interactions between all relevant parties:</p>
@@ -5099,7 +5100,7 @@ and of HTTP to let the child device <code>PUT</code> the requested file.</p>
 <ol>
 <li>On reception of a configuration request for a child device named <code>$CHILD_DEVICE_ID</code>
 for a file <code>{ path = $PATH, type = $TYPE }</code> defined in <code>$CHILD_DEVICE_ID/c8y-configuration-plugin.toml</code>
-the <code>c8y_configuration_plugin</code> forwards this request to the child device by publishing an MQTT message
+the <code>c8y-configuration-plugin</code> forwards this request to the child device by publishing an MQTT message
 telling which configuration is expected and where to upload it.
 <ul>
 <li>The topic is <code>tedge/$CHILD_DEVICE_ID/commands/req/config_snapshot</code></li>
@@ -5110,7 +5111,7 @@ telling which configuration is expected and where to upload it.
 <li><code>&quot;type&quot;: &quot;$TYPE&quot;</code> (if no <code>type</code> has been specified, then this field is omitted) </li>
 </ul>
 </li>
-<li>The <code>url</code> conveys the fact the <code>c8y_configuration_plugin</code> expects that, on transfer success,
+<li>The <code>url</code> conveys the fact the <code>c8y-configuration-plugin</code> expects that, on transfer success,
 the file will be stored <code>$TEDGE_HTTP_ROOT/$CHILD_DEVICE_ID/config_snapshot/$TYPE</code>.
 Note that when the <code>$TYPE</code> is not explicitly defined in <code>$CHILD_DEVICE_ID/c8y-configuration-plugin.toml</code>,
 then the <code>$PATH</code> is used as the configuration type.</li>
@@ -5146,7 +5147,7 @@ It should also send an executing message before starting to process the request.
 </ol>
 </li>
 <li>On reception of an operation status message,
-the <code>c8y_configuration_plugin</code> notifies the cloud accordingly.
+the <code>c8y-configuration-plugin</code> notifies the cloud accordingly.
 <ol>
 <li>When a success message is received,
 then the configuration plugin transfers to the cloud the content <code>PUT</code> by the child-device
@@ -5172,7 +5173,7 @@ as if it received a config snapshot request for <code>c8y-configuration-plugin</
 <li>Generate a <code>c8y-configuration-plugin.toml</code> with the supported config list in the presribed format.</li>
 <li>Uploads this file to <code>http://$TEDGE_HTTP/tedge/file-transfer/$CHILD_DEVICE_ID/config_snapshot/c8y-configuration-plugin</code> with a <code>PUT</code> call.</li>
 <li>On success of the upload, the child-device agent
-notifies the <code>c8y_configuration_plugin</code> with an MQTT message published on the topic
+notifies the <code>c8y-configuration-plugin</code> with an MQTT message published on the topic
 <code>tedge/$CHILD_DEVICE_ID/commands/res/config_snapshot</code>
 with the payload containing a JSON record with <code>&quot;type&quot;: &quot;c8y-configuration-plugin&quot;</code> but without the <code>status</code> field.</li>
 <li>Note that there is no need to send executing notification messages here,
@@ -5649,7 +5650,7 @@ Currently we support <code>Raspberry Pi 3B</code> for <code>armv7</code> archite
 <pre><code class="language-shell">ls ./target/debug/tedge*
 </code></pre>
 <pre><code>-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge
--rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge_mapper
+-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge-mapper
 </code></pre>
 <p>Binaries can be run eg: <code>./target/debug/tedge</code>.
 Alternatively, you can use <code>cargo</code> to build and run executable in a single command:</p>
@@ -5663,21 +5664,21 @@ Alternatively, you can use <code>cargo</code> to build and run executable in a s
 <pre><code class="language-shell">ls ./target/release/tedge*
 </code></pre>
 <pre><code>-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge
--rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge_mapper
+-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge-mapper
 </code></pre>
 <p>Binaries can be run eg: <code>./target/release/tedge</code>.</p>
 <h2 id="building-deb-package"><a class="header" href="#building-deb-package">Building deb package</a></h2>
-<p>Currently thin-edge.io contains 2 binaries, <code>tedge</code> (cli) and <code>tedge_mapper</code> which are packaged as separate debian packages. To create following commands are to be issued:</p>
+<p>Currently thin-edge.io contains 2 binaries, <code>tedge</code> (cli) and <code>tedge-mapper</code> which are packaged as separate debian packages. To create following commands are to be issued:</p>
 <pre><code class="language-shell">cargo deb -p tedge
 </code></pre>
-<pre><code class="language-shell">cargo deb -p tedge_mapper
+<pre><code class="language-shell">cargo deb -p tedge-mapper
 </code></pre>
 <p>All resulting packages are going to be in: <code>./target/debian/</code> directory:</p>
 <pre><code class="language-shell">ls ./target/debian -l
 </code></pre>
 <pre><code>total 2948
--rw-rw-r-- 1 user user 11111 Jan 1 00:00 tedge_0.5.0_amd64.deb
--rw-rw-r-- 1 user user 11111 Jan 1 00:00 tedge_mapper_0.5.0_amd64.deb
+-rw-rw-r-- 1 user user 11111 Jan 1 00:00 tedge_0.9.0_amd64.deb
+-rw-rw-r-- 1 user user 11111 Jan 1 00:00 tedge-mapper_0.9.0_amd64.deb
 </code></pre>
 <h2 id="cross-compiling"><a class="header" href="#cross-compiling">Cross compiling</a></h2>
 <p>To create binaries which can run on different platform than one you are currently on you can use <a href="https://github.com/rust-embedded/cross">cargo cross</a>:</p>
@@ -5687,7 +5688,7 @@ Alternatively, you can use <code>cargo</code> to build and run executable in a s
 <pre><code class="language-shell">ls ./target/armv7-unknown-linux-gnueabihf/debug/tedge*
 </code></pre>
 <pre><code>-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge
--rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge_mapper
+-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge-mapper
 </code></pre>
 <p>To cross compile release version of the binaries just add <code>--release</code> to the above command like so:</p>
 <pre><code class="language-shell">cross build --target armv7-unknown-linux-gnueabihf --release
@@ -6002,7 +6003,7 @@ OPTIONS:
 <div style="break-before: page; page-break-before: always;"></div><h1 id="thin-edge-config-files"><a class="header" href="#thin-edge-config-files">Thin-edge config files</a></h1>
 <p>Thin-edge.io requires config files for its operation. The <code>tedge --init</code> option is used to create
 the base directory and other directories inside the base directory with appropriate user and permissions.
-The <code>tedge_mapper --init c8y/az</code> and <code>tedge_agent --init</code> will create the
+The <code>tedge-mapper --init c8y/az</code> and <code>tedge-agent --init</code> will create the
 directories/files inside the base directory that are required for their operation.</p>
 <p>By default, the config files are created in <code>/etc/tedge</code> directory. To create the config files in 
 a custom base directory one has to use <code>--config-dir &lt;Path to base directory&gt;</code> option.</p>
@@ -6023,8 +6024,8 @@ drwxrwxr-x 2 tedge     tedge     4096 Jun 10 14:49 plugins
 <pre><code class="language-shell">sudo tedge --config-dir /global/path/to/config/dir --init
 </code></pre>
 <p>Now all the config directories will be created inside the <code>/global/path/to/config/dir</code> directory.</p>
-<p>The directories and files that are required by the <code>tedge_mapper</code> are created as below.</p>
-<pre><code class="language-shell">sudo tedge_mapper --init c8y
+<p>The directories and files that are required by the <code>tedge-mapper</code> are created as below.</p>
+<pre><code class="language-shell">sudo tedge-mapper --init c8y
 </code></pre>
 <pre><code>ls -l /etc/tedge/operations/c8y
 total 0
@@ -6034,14 +6035,14 @@ total 0
 <p>To create these directories in a custom directory, use <code>--config-dir</code> option as below.</p>
 <pre><code class="language-shell">sudo tedge_mapper --config-dir /global/path/to/config/dir --init c8y
 </code></pre>
-<p>The directories and files that are required by the <code>tedge_agent</code> are created as below.</p>
-<pre><code class="language-shell">sudo tedge_agent --init
+<p>The directories and files that are required by the <code>tedge-agent</code> are created as below.</p>
+<pre><code class="language-shell">sudo tedge-agent --init
 </code></pre>
 <pre><code>ls -l /etc/tedge/.agent
 -rw-r--r-- 1 tedge tedge 0 Jun 15 11:51 /etc/tedge/.agent/current-operation
 </code></pre>
 <p>To create these directories and files in a custom directory, use the <code>--config-dir</code> option as below as below.</p>
-<pre><code class="language-shell">sudo tedge_agent --config-dir /global/path/to/config/dir --init
+<pre><code class="language-shell">sudo tedge-agent --config-dir /global/path/to/config/dir --init
 </code></pre>
 <h2 id="manage-the-configuration-parameters"><a class="header" href="#manage-the-configuration-parameters">Manage the configuration parameters</a></h2>
 <p>The configuration parameters can be set/unset/list in a config file as below</p>

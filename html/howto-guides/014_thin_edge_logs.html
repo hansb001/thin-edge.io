@@ -146,14 +146,14 @@ The logs here capture INFO, WARNING, and ERROR messages.</p>
 cloud can be accessed as below</p>
 <p><code>journalctl -u tedge-mapper-c8y.service</code></p>
 <blockquote>
-<p>Note: Run <code>tedge_mapper --debug c8y</code> to log more debug messages</p>
+<p>Note: Run <code>tedge-mapper --debug c8y</code> to log more debug messages</p>
 </blockquote>
 <h4 id="tedge-azure-mapper"><a class="header" href="#tedge-azure-mapper">Tedge Azure mapper</a></h4>
 <p>The log messages of the Azure mapper component that sends the measurement data from the thin-edge device to the Azure
 cloud can be accessed as below.</p>
 <p><code>journalctl -u tedge-mapper-az.service</code></p>
 <blockquote>
-<p>Note: Run <code>tedge_mapper --debug az</code> to log more debug messages</p>
+<p>Note: Run <code>tedge-mapper --debug az</code> to log more debug messages</p>
 </blockquote>
 <h3 id="device-monitoring-logs"><a class="header" href="#device-monitoring-logs">Device monitoring logs</a></h3>
 <p>The thin-edge device monitoring component logs can be found as below</p>
@@ -161,7 +161,7 @@ cloud can be accessed as below.</p>
 <p>The log messages of the collectd mapper that sends the monitoring data to the cloud can be accessed as below</p>
 <p><code>journalctl -u tedge-mapper-collectd.service</code></p>
 <blockquote>
-<p>Note: Run <code>tedge_mapper --debug collectd</code> to log more debug messages</p>
+<p>Note: Run <code>tedge-mapper --debug collectd</code> to log more debug messages</p>
 </blockquote>
 <h3 id="software-management-logs"><a class="header" href="#software-management-logs">Software Management logs</a></h3>
 <p>This section describes how to access the software management component logs</p>
@@ -176,7 +176,7 @@ the log file captures <code>exit status, stdout, and stderr</code> messages.</p>
 <p>tedge-agent : TTY=unknown ; PWD=/tmp ; USER=root ; COMMAND=/etc/tedge/sm-plugins/apt finalize</p>
 <p>tedge-agent : TTY=unknown ; PWD=/tmp ; USER=root ; COMMAND=/etc/tedge/sm-plugins/apt list</p>
 <blockquote>
-<p>Note: Run <code>tedge_agent --debug</code> to log more debug messages</p>
+<p>Note: Run <code>tedge-agent --debug</code> to log more debug messages</p>
 </blockquote>
 <h2 id="thirdparty-component-logs"><a class="header" href="#thirdparty-component-logs">Thirdparty component logs</a></h2>
 <p>Thin-edge uses the third-party components <code>Mosquitto</code> as the mqtt broker and <code>Collectd</code> for monitoring purpose.

@@ -137,7 +137,7 @@
                         <h1 id="thin-edge-config-files"><a class="header" href="#thin-edge-config-files">Thin-edge config files</a></h1>
 <p>Thin-edge.io requires config files for its operation. The <code>tedge --init</code> option is used to create
 the base directory and other directories inside the base directory with appropriate user and permissions.
-The <code>tedge_mapper --init c8y/az</code> and <code>tedge_agent --init</code> will create the
+The <code>tedge-mapper --init c8y/az</code> and <code>tedge-agent --init</code> will create the
 directories/files inside the base directory that are required for their operation.</p>
 <p>By default, the config files are created in <code>/etc/tedge</code> directory. To create the config files in 
 a custom base directory one has to use <code>--config-dir &lt;Path to base directory&gt;</code> option.</p>
@@ -158,8 +158,8 @@ drwxrwxr-x 2 tedge     tedge     4096 Jun 10 14:49 plugins
 <pre><code class="language-shell">sudo tedge --config-dir /global/path/to/config/dir --init
 </code></pre>
 <p>Now all the config directories will be created inside the <code>/global/path/to/config/dir</code> directory.</p>
-<p>The directories and files that are required by the <code>tedge_mapper</code> are created as below.</p>
-<pre><code class="language-shell">sudo tedge_mapper --init c8y
+<p>The directories and files that are required by the <code>tedge-mapper</code> are created as below.</p>
+<pre><code class="language-shell">sudo tedge-mapper --init c8y
 </code></pre>
 <pre><code>ls -l /etc/tedge/operations/c8y
 total 0
@@ -169,14 +169,14 @@ total 0
 <p>To create these directories in a custom directory, use <code>--config-dir</code> option as below.</p>
 <pre><code class="language-shell">sudo tedge_mapper --config-dir /global/path/to/config/dir --init c8y
 </code></pre>
-<p>The directories and files that are required by the <code>tedge_agent</code> are created as below.</p>
-<pre><code class="language-shell">sudo tedge_agent --init
+<p>The directories and files that are required by the <code>tedge-agent</code> are created as below.</p>
+<pre><code class="language-shell">sudo tedge-agent --init
 </code></pre>
 <pre><code>ls -l /etc/tedge/.agent
 -rw-r--r-- 1 tedge tedge 0 Jun 15 11:51 /etc/tedge/.agent/current-operation
 </code></pre>
 <p>To create these directories and files in a custom directory, use the <code>--config-dir</code> option as below as below.</p>
-<pre><code class="language-shell">sudo tedge_agent --config-dir /global/path/to/config/dir --init
+<pre><code class="language-shell">sudo tedge-agent --config-dir /global/path/to/config/dir --init
 </code></pre>
 <h2 id="manage-the-configuration-parameters"><a class="header" href="#manage-the-configuration-parameters">Manage the configuration parameters</a></h2>
 <p>The configuration parameters can be set/unset/list in a config file as below</p>

@@ -199,10 +199,10 @@ systemctl stop c8y-log-plugin
 <p><code>arch</code> -&gt; architecture type (amd64, armhf, arm64)</p>
 </blockquote>
 <p>Eg:</p>
-<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.5.0/tedge_0.5.0_armhf.deb
+<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.9.0/tedge_0.9.0_armhf.deb
 </code></pre>
 <p>and for <code>mapper</code>:</p>
-<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.5.0/tedge_mapper_0.5.0_armhf.deb
+<pre><code class="language-shell">curl -LJO https://github.com/thin-edge/thin-edge.io/releases/download/0.9.0/tedge-mapper_0.9.0_armhf.deb
 </code></pre>
 <h3 id="thin-edgeio-package-installation"><a class="header" href="#thin-edgeio-package-installation">thin-edge.io package installation</a></h3>
 <p>Now, we have downloaded the package we can proceed to installation. First we will install cli tool <code>tedge</code>.</p>
@@ -216,10 +216,10 @@ systemctl stop c8y-log-plugin
 <pre><code class="language-shell">dpkg -i tedge_0.5.0_armhf.deb
 </code></pre>
 <p>To install mapper for thin-edge.io do:</p>
-<pre><code class="language-shell">dpkg -i tedge_mapper_&lt;version&gt;_&lt;arch&gt;.deb
+<pre><code class="language-shell">dpkg -i tedge-mapper_&lt;version&gt;_&lt;arch&gt;.deb
 </code></pre>
 <p>Eg:</p>
-<pre><code class="language-shell">dpkg -i tedge_mapper_0.5.0_armhf.deb
+<pre><code class="language-shell">dpkg -i tedge-mapper_0.9.0_armhf.deb
 </code></pre>
 <h2 id="uninstall-thin-edgeio"><a class="header" href="#uninstall-thin-edgeio">Uninstall <code>thin-edge.io</code></a></h2>
 <p>The <code>thin-edge.io</code> can be uninstalled using a script, that can be downloaded
@@ -236,7 +236,7 @@ COMMANDS:
     purge      Uninstall thin-edge.io and also remove configuration files
 </code></pre>
 <blockquote>
-<p>Note: The uninstall script removes/purges the core thin-edge.io packages like <code>tedge, tedge_mapper, and tedge_agent</code> as well as thin-edge.io plugins like <code>tedge_apt_plugin, c8y_log_plugin, c8y_configuration_plugin</code> etc.</p>
+<p>Note: The uninstall script removes/purges the core thin-edge.io packages like <code>tedge, tedge-mapper, and tedge-agent</code> as well as thin-edge.io plugins like <code>tedge-apt-plugin, c8y-log-plugin, c8y-configuration-plugin</code> etc.</p>
 </blockquote>
 <h3 id="remove-thin-edgeio"><a class="header" href="#remove-thin-edgeio"><code>Remove</code> thin-edge.io</a></h3>
 <p>Use uninstall script as shown below just to <code>remove</code> the <code>thin-edge.io</code> packages.</p>

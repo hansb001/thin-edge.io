@@ -165,10 +165,10 @@ A minimal thin-edge.io installation requires three components:</p>
 <li>tedge mapper</li>
 </ul>
 <pre><code class="language-shell">sudo mv target/release/tedge /usr/bin
-sudo mv target/release/tedge_agent /usr/bin
-sudo mv target/release/tedge_mapper /usr/bin
+sudo mv target/release/tedge-agent /usr/bin
+sudo mv target/release/tedge-mapper /usr/bin
 </code></pre>
-<p>You should now have access to the <code>tedge</code>, <code>tedge_agent</code> and <code>tedge_mapper</code> binaries.</p>
+<p>You should now have access to the <code>tedge</code>, <code>tedge-agent</code> and <code>tedge-mapper</code> binaries.</p>
 <p align="center">
   <img src="./images/manual_installation-tedge_binary_dry_run.png" alt="Sublime's custom image"/>
 </p>
@@ -207,8 +207,8 @@ sudo useradd --system --no-create-home -c &quot;&quot; -s /sbin/nologin -g tedge
 <pre><code class="language-shell">sudo rc-service mosquitto stop
 sudo tedge --init
 sudo rc-service mosquitto start
-sudo tedge_agent --init
-sudo tedge_mapper --init c8y
+sudo tedge-agent --init
+sudo tedge-mapper --init c8y
 </code></pre>
 <p>This should show the following output:</p>
 <p align="center">
@@ -241,13 +241,13 @@ sudo tedge_mapper --init c8y
 
 start() {
    ebegin &quot;Starting tedge-agent&quot;
-   start-stop-daemon --user tedge --start --background --exec tedge_agent
+   start-stop-daemon --user tedge --start --background --exec tedge-agent
    eend $?
 }
 
 stop() {
     ebegin &quot;Stopping tedge-agent&quot;
-    start-stop-daemon --stop --exec tedge_agent
+    start-stop-daemon --stop --exec tedge-agent
     eend $?
 }
 </code></pre>
@@ -259,13 +259,13 @@ stop() {
 
 start() {
    ebegin &quot;Starting tedge-mapper-c8y&quot;
-   start-stop-daemon --user tedge --start --background --exec tedge_mapper c8y
+   start-stop-daemon --user tedge --start --background --exec tedge-mapper c8y
    eend $?
 }
 
 stop() {
    ebegin &quot;Stopping tedge-mapper-c8y&quot;
-   start-stop-daemon --stop --exec tedge_mapper
+   start-stop-daemon --stop --exec tedge-mapper
    eend $?
 }
 </code></pre>

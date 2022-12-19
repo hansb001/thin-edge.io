@@ -136,13 +136,13 @@
                     <main>
                         <h1 id="how-to-retrieve-logs-with-the-log-plugin"><a class="header" href="#how-to-retrieve-logs-with-the-log-plugin">How to retrieve logs with the log plugin</a></h1>
 <p>You can now access any type of logs directly from your Cumulocity UI, using the
-<code>c8y_log_plugin</code> daemon. To get started install the <code>c8y_log_plugin</code> via the
+<code>c8y-log-plugin</code> daemon. To get started install the <code>c8y-log-plugin</code> via the
 debian package.</p>
 <p>If you have not installed via the debian package, make sure you have the following:</p>
 <ul>
-<li>run <code>sudo c8y_log_plugin --init</code></li>
+<li>run <code>sudo c8y-log-plugin --init</code></li>
 <li>a <code>c8y-log-plugin.service</code> file in <code>/lib/systemd/system/c8y-log-plugin.service</code></li>
-<li>a <code>c8y_log_plugin</code> binary in <code>/usr/bin/c8y_log_plugin</code></li>
+<li>a <code>c8y-log-plugin</code> binary in <code>/usr/bin/c8y-log-plugin</code></li>
 <li>check if <code>/etc/tedge/c8y/c8y-log-plugin.toml</code> was created</li>
 </ul>
 <p>After the device is connected to Cumulocity, this plugin needs to be started and

@@ -207,7 +207,7 @@ Currently we support <code>Raspberry Pi 3B</code> for <code>armv7</code> archite
 <pre><code class="language-shell">ls ./target/debug/tedge*
 </code></pre>
 <pre><code>-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge
--rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge_mapper
+-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge-mapper
 </code></pre>
 <p>Binaries can be run eg: <code>./target/debug/tedge</code>.
 Alternatively, you can use <code>cargo</code> to build and run executable in a single command:</p>
@@ -221,21 +221,21 @@ Alternatively, you can use <code>cargo</code> to build and run executable in a s
 <pre><code class="language-shell">ls ./target/release/tedge*
 </code></pre>
 <pre><code>-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge
--rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge_mapper
+-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge-mapper
 </code></pre>
 <p>Binaries can be run eg: <code>./target/release/tedge</code>.</p>
 <h2 id="building-deb-package"><a class="header" href="#building-deb-package">Building deb package</a></h2>
-<p>Currently thin-edge.io contains 2 binaries, <code>tedge</code> (cli) and <code>tedge_mapper</code> which are packaged as separate debian packages. To create following commands are to be issued:</p>
+<p>Currently thin-edge.io contains 2 binaries, <code>tedge</code> (cli) and <code>tedge-mapper</code> which are packaged as separate debian packages. To create following commands are to be issued:</p>
 <pre><code class="language-shell">cargo deb -p tedge
 </code></pre>
-<pre><code class="language-shell">cargo deb -p tedge_mapper
+<pre><code class="language-shell">cargo deb -p tedge-mapper
 </code></pre>
 <p>All resulting packages are going to be in: <code>./target/debian/</code> directory:</p>
 <pre><code class="language-shell">ls ./target/debian -l
 </code></pre>
 <pre><code>total 2948
--rw-rw-r-- 1 user user 11111 Jan 1 00:00 tedge_0.5.0_amd64.deb
--rw-rw-r-- 1 user user 11111 Jan 1 00:00 tedge_mapper_0.5.0_amd64.deb
+-rw-rw-r-- 1 user user 11111 Jan 1 00:00 tedge_0.9.0_amd64.deb
+-rw-rw-r-- 1 user user 11111 Jan 1 00:00 tedge-mapper_0.9.0_amd64.deb
 </code></pre>
 <h2 id="cross-compiling"><a class="header" href="#cross-compiling">Cross compiling</a></h2>
 <p>To create binaries which can run on different platform than one you are currently on you can use <a href="https://github.com/rust-embedded/cross">cargo cross</a>:</p>
@@ -245,7 +245,7 @@ Alternatively, you can use <code>cargo</code> to build and run executable in a s
 <pre><code class="language-shell">ls ./target/armv7-unknown-linux-gnueabihf/debug/tedge*
 </code></pre>
 <pre><code>-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge
--rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge_mapper
+-rwxrwxr-x   2 user user 11111 Jan 1 00:00 tedge-mapper
 </code></pre>
 <p>To cross compile release version of the binaries just add <code>--release</code> to the above command like so:</p>
 <pre><code class="language-shell">cross build --target armv7-unknown-linux-gnueabihf --release

@@ -162,28 +162,28 @@
 <p>Currently all binaries provided with releases are packaged into <code>deb</code> packages.
 <code>deb</code> packages can be extracted to get the binaries for installation (example):</p>
 <pre><code class="language-shell">ar -x tedge_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
-ar -x tedge_agent_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
-ar -x tedge_mapper_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
+ar -x tedge-agent_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
+ar -x tedge-mapper_&lt;version&gt;_amd64.deb | tar -xf data.tar.xz
 </code></pre>
 <p>Which should give you <code>usr</code> and/or <code>lib</code> directory where you can find binaries.
 After extracting all packages, you should now adjust permissions on those files:</p>
 <pre><code class="language-shell">chown root:root /usr/bin/tedge
-chown root:root /usr/bin/tedge_agent
-chown root:root /usr/bin/tedge_mapper
+chown root:root /usr/bin/tedge-agent
+chown root:root /usr/bin/tedge-mapper
 </code></pre>
 <p>and then move your binaries to the appropriate directory, eg:</p>
 <pre><code class="language-shell">mv ./lib/ ./bin/ /
 </code></pre>
 <h4 id="if-building-from-source"><a class="header" href="#if-building-from-source">If building from source</a></h4>
 <p>If you have built the binaries from source you should install them on the target in: <code>/usr/bin/</code>.</p>
-<p><code>systemd</code> unit files for <code>tedge_mapper</code> and <code>tedge_agent</code> can be found in the repository at <code>configuration/init/systemd/tedge-*</code> and should be installed on the target in: <code>lib/systemd/system/tedge-*</code>.</p>
+<p><code>systemd</code> unit files for <code>tedge-mapper</code> and <code>tedge-agent</code> can be found in the repository at <code>configuration/init/systemd/tedge-*</code> and should be installed on the target in: <code>lib/systemd/system/tedge-*</code>.</p>
 <h3 id="configuring-the-system-and-systemd-units"><a class="header" href="#configuring-the-system-and-systemd-units">Configuring the system and systemd-units</a></h3>
 <p><code>thin-edge.io</code> relies on certain system configuration and systemd process management, when installing from deb package all of that is setup automatically but with manual installation a set of steps has to be performed.</p>
 <p>On most Linux distribution it should suffice to execute them as <code>root</code> to do the setup, but in some cases (eg, your system uses <code>useradd</code> instead of <code>adduser</code> package) more detailed instructions are documented:</p>
 <ul>
 <li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge/postinst">tedge</a></li>
-<li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge_agent/postinst">tedge-agent</a></li>
-<li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge_mapper/postinst">tedge-mapper</a></li>
+<li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge-agent/postinst">tedge-agent</a></li>
+<li><a href="https://github.com/thin-edge/thin-edge.io/blob/main/configuration/debian/tedge-mapper/postinst">tedge-mapper</a></li>
 </ul>
 <p>After following steps for all the components installed <code>thin-edge.io</code> should be operational.</p>
 
